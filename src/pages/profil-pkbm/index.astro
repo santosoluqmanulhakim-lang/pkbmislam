@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const pkbmList = (await getCollection('pkbm-profil'))
+  .sort((a, b) => a.data.nama.localeCompare(b.data.nama));
+---
+
+<BaseLayout
+  title="Profil PKBM Islam"
+  description="Profil PKBM Islam yang telah berhasil beroperasi di berbagai daerah Indonesia — tantangan, keunggulan, dan program yang dijalankan."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>Profil PKBM Islam</h1>
+      <p>Mengenal lembaga-lembaga yang telah berhasil menjalankan PKBM berbasis nilai Islam</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      {pkbmList.length === 0 ? (
+        <div class="empty-state">
+          <p>📋 Profil PKBM segera ditambahkan.</p>
+        </div>
+      ) : (
+        <div class="pkbm-grid">
+          {pkbmList.map(pkbm => (
+            <a href={`/profil-pkbm/${pkbm.slug}`} class="pkbm-card">
+              <div class="pkbm-header">
+                <div>
+                  <h2>{pkbm.data.nama}</h2>
+                  <div class="pkbm-location">📍 {pkbm.data.kota}, {pkbm.data.provinsi}</div>
+                </div>
+                <div class="pkbm-year">Est. {pkbm.data.tahunBerdiri}</div>
+              </div>
+              <p class="pkbm-desc">{pkbm.data.deskripsi}</p>
+              <div class="pkbm-programs">
+                {pkbm.data.program.map(p => <span class="tag">{p}</span>)}
+              </div>
+              {pkbm.data.keunggulan.length > 0 && (
+                <div class="pkbm-keunggulan">
+                  <strong>Keunggulan:</strong>
+                  <span>{pkbm.data.keunggulan[0]}</span>
+                </div>
+              )}
+              <span class="read-more">Lihat profil lengkap →</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+  }
+  .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem;
+    color: var(--clr-text-muted);
+    font-size: 1.1rem;
+  }
+
+  .pkbm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .pkbm-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: all 0.2s;
+  }
+  .pkbm-card:hover {
+    border-color: var(--clr-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .pkbm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .pkbm-card h2 { font-size: 1.1rem; }
+
+  .pkbm-location { font-size: 0.82rem; color: var(--clr-text-muted); margin-top: 0.2rem; }
+
+  .pkbm-year {
+    background: var(--clr-accent-light);
+    color: #7a5c00;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .pkbm-desc { font-size: 0.88rem; color: var(--clr-text-muted); flex: 1; }
+
+  .pkbm-programs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .pkbm-keunggulan {
+    font-size: 0.85rem;
+    color: var(--clr-text-muted);
+  }
+  .pkbm-keunggulan strong { color: var(--clr-primary); margin-right: 0.4rem; }
+
+  .read-more {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--clr-primary);
+  }
+</style>

@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqs = [
+  {
+    kategori: 'Umum',
+    items: [
+      { q: 'Apa itu PKBM?', a: 'PKBM (Pusat Kegiatan Belajar Masyarakat) adalah satuan pendidikan non-formal yang menyelenggarakan berbagai program pendidikan bagi masyarakat, terutama yang tidak terlayani pendidikan formal. PKBM diakui dan diawasi oleh Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi (Kemendikbudristek).' },
+      { q: 'Apa bedanya PKBM dengan sekolah formal?', a: 'PKBM lebih fleksibel dalam waktu dan tempat belajar, terbuka untuk semua usia, dan biasanya tidak memungut biaya besar. Kurikulumnya mengikuti standar nasional namun dapat disesuaikan dengan kebutuhan lokal, termasuk penambahan muatan nilai-nilai Islam.' },
+      { q: 'Siapa yang bisa belajar di PKBM?', a: 'Semua warga masyarakat yang belum mendapatkan atau ingin melanjutkan pendidikan, tanpa batasan usia. PKBM sangat tepat untuk masyarakat yang putus sekolah, pekerja, ibu rumah tangga, maupun lansia yang ingin belajar.' },
+    ]
+  },
+  {
+    kategori: 'Ijazah & Pengakuan',
+    items: [
+      { q: 'Apakah ijazah PKBM diakui secara nasional?', a: 'Ya. Ijazah Paket A, B, dan C diakui sepenuhnya oleh Kemendikbudristek dan setara dengan ijazah SD, SMP, dan SMA. Dapat digunakan untuk melanjutkan pendidikan ke jenjang yang lebih tinggi maupun melamar pekerjaan.' },
+      { q: 'Bisakah lulusan Paket C masuk perguruan tinggi (PTN)?', a: 'Ya. Lulusan Paket C dapat mengikuti SNBT (Seleksi Nasional Berbasis Tes) dan jalur penerimaan PTN lainnya. Beberapa PTN terkemuka sudah menerima lulusan Paket C.' },
+      { q: 'Apakah nilai Ujian Nasional berbeda dengan sekolah formal?', a: 'Saat ini Ujian Nasional sudah dihapus. PKBM menyelenggarakan Ujian Kesetaraan (UKEQ) yang hasilnya setara dan diakui secara nasional.' },
+    ]
+  },
+  {
+    kategori: 'Pendirian PKBM',
+    items: [
+      { q: 'Berapa biaya mendirikan PKBM?', a: 'Biaya bervariasi tergantung daerah. Komponen utama adalah biaya pembuatan akta yayasan (notaris), legalisir dokumen, dan biaya operasional awal. Pemerintah tidak menetapkan tarif khusus untuk pendaftaran PKBM ke Dinas Pendidikan.' },
+      { q: 'Apakah PKBM bisa mendapatkan bantuan pemerintah?', a: 'Ya. PKBM yang sudah terdaftar di Dapodik berhak mengajukan BOP (Biaya Operasional Pendidikan) dari Kemendikbudristek. Besaran BOP tergantung jumlah warga belajar aktif.' },
+      { q: 'Berapa minimal warga belajar untuk mendirikan PKBM?', a: 'Umumnya Dinas Pendidikan mensyaratkan minimal 20 warga belajar aktif yang terdaftar. Pastikan cek persyaratan di Dinas Pendidikan setempat karena bisa berbeda antar daerah.' },
+      { q: 'Bolehkah PKBM dikelola oleh pesantren atau yayasan Islam?', a: 'Tentu boleh. Banyak PKBM sukses dikelola oleh pesantren, yayasan Islam, atau masjid. Ini justru sangat dianjurkan karena dapat mengintegrasikan pendidikan kesetaraan dengan nilai-nilai Islam.' },
+    ]
+  },
+  {
+    kategori: 'Tantangan & Solusi',
+    items: [
+      { q: 'Apa tantangan utama mendirikan PKBM?', a: 'Tantangan umum meliputi: (1) rekrutmen warga belajar yang konsisten, (2) ketersediaan tutor yang sabar dan berkualitas, (3) biaya operasional mandiri sebelum mendapat BOP, dan (4) birokrasi perizinan yang berbeda di tiap daerah.' },
+      { q: 'Bagaimana cara mencari tutor/pengajar untuk PKBM?', a: 'Tutor PKBM tidak harus sarjana pendidikan. Siapapun yang kompeten di bidangnya dapat menjadi tutor. Bisa memanfaatkan alumni pesantren, mahasiswa, atau warga setempat yang berpengalaman. Pemerintah juga mengakui pamong belajar dari kalangan masyarakat.' },
+    ]
+  },
+];
+---
+
+<BaseLayout
+  title="FAQ — Pertanyaan Seputar PKBM"
+  description="Kumpulan pertanyaan dan jawaban seputar PKBM: ijazah, pendirian, program, BOP, dan tantangan yang sering dihadapi."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>Pertanyaan yang Sering Diajukan</h1>
+      <p>Jawaban jelas untuk pertanyaan umum seputar PKBM</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container faq-container">
+      {faqs.map(group => (
+        <div class="faq-group">
+          <h2 class="group-title">{group.kategori}</h2>
+          <div class="faq-list">
+            {group.items.map(item => (
+              <details class="faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+  }
+  .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+
+  .faq-container { max-width: 780px; }
+
+  .faq-group { margin-bottom: 2.5rem; }
+
+  .group-title {
+    font-size: 1.1rem;
+    color: var(--clr-primary);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--clr-primary-light);
+  }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .faq-item {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--clr-primary); }
+  .faq-item[open] { border-color: var(--clr-primary); }
+
+  .faq-item summary {
+    padding: 1.1rem 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-size: 1.3rem;
+    color: var(--clr-primary);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .faq-item[open] summary::after { content: '−'; }
+
+  .faq-item p {
+    padding: 0.75rem 1.25rem 1.1rem;
+    font-size: 0.92rem;
+    color: var(--clr-text-muted);
+    border-top: 1px solid var(--clr-border);
+    line-height: 1.75;
+  }
+</style>

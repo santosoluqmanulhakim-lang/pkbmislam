@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Blog & Artikel" description="Artikel dan panduan seputar PKBM, pendidikan non-formal, kesetaraan, dan pengelolaan lembaga pendidikan Islam.">
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>Blog & Artikel</h1>
+      <p>Wawasan, panduan, dan inspirasi seputar pendidikan non-formal Islam</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      {posts.length === 0 ? (
+        <div class="empty-state">
+          <p>📝 Artikel segera hadir. Pantau terus!</p>
+        </div>
+      ) : (
+        <div class="blog-grid">
+          {posts.map(post => (
+            <a href={`/blog/${post.slug}`} class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">
+                  {post.data.pubDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </span>
+                <span class="blog-author">✍️ {post.data.author}</span>
+              </div>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+              <div class="blog-tags">
+                {post.data.tags.map(t => <span class="tag">{t}</span>)}
+              </div>
+              <span class="read-more">Baca selengkapnya →</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+  }
+  .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem;
+    color: var(--clr-text-muted);
+    font-size: 1.1rem;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .blog-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: all 0.2s;
+  }
+  .blog-card:hover {
+    border-color: var(--clr-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .blog-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--clr-text-muted);
+  }
+
+  .blog-card h2 {
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  .blog-card p {
+    font-size: 0.9rem;
+    color: var(--clr-text-muted);
+    flex: 1;
+  }
+
+  .blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .read-more {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--clr-primary);
+    margin-top: 0.25rem;
+  }
+</style>

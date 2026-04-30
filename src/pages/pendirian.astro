@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const steps = [
+  {
+    num: 1,
+    title: 'Bentuk Badan Hukum / Yayasan',
+    desc: 'PKBM harus dikelola oleh badan hukum (Yayasan, Perkumpulan, atau Organisasi Kemasyarakatan). Daftarkan ke notaris dan Kementerian Hukum & HAM.',
+    docs: ['Akta Notaris Yayasan', 'SK Kemenkumham', 'NPWP Yayasan'],
+  },
+  {
+    num: 2,
+    title: 'Siapkan Dokumen Pendirian PKBM',
+    desc: 'Kumpulkan semua persyaratan administratif yang diperlukan sebelum mengajukan ke Dinas Pendidikan.',
+    docs: ['Surat permohonan pendirian PKBM', 'Fotokopi akta pendirian yayasan', 'Data calon warga belajar (minimal 20 orang)', 'Daftar pendidik & tenaga kependidikan', 'Denah lokasi dan foto gedung'],
+  },
+  {
+    num: 3,
+    title: 'Ajukan ke Dinas Pendidikan Kabupaten/Kota',
+    desc: 'Serahkan berkas ke Bidang Pendidikan Non-Formal (PNF) atau Bidang PAUD & Dikmas di Dinas Pendidikan setempat.',
+    docs: ['Formulir pengajuan izin operasional', 'Semua dokumen dari langkah 1 & 2'],
+  },
+  {
+    num: 4,
+    title: 'Verifikasi & Kunjungan Lapangan',
+    desc: 'Petugas Dinas Pendidikan akan melakukan verifikasi dokumen dan kunjungan lapangan untuk memastikan kesiapan lembaga.',
+    docs: [],
+  },
+  {
+    num: 5,
+    title: 'Terbit Izin Operasional',
+    desc: 'Setelah verifikasi selesai, Dinas Pendidikan menerbitkan Surat Keputusan (SK) Izin Operasional PKBM.',
+    docs: ['SK Izin Operasional dari Dinas Pendidikan'],
+  },
+  {
+    num: 6,
+    title: 'Daftarkan ke Dapodik (NISN & NPSN)',
+    desc: 'Masukkan data lembaga ke sistem Dapodik Kemendikbudristek untuk mendapatkan Nomor Pokok Satuan Pendidikan (NPSN) dan mengelola data warga belajar.',
+    docs: ['Akses ke sistem Dapodik', 'SK Izin Operasional'],
+  },
+  {
+    num: 7,
+    title: 'Mulai Kegiatan Belajar Mengajar',
+    desc: 'PKBM resmi beroperasi. Rekrut warga belajar, tetapkan jadwal belajar, dan mulai menyelenggarakan program kesetaraan maupun keterampilan.',
+    docs: [],
+  },
+];
+---
+
+<BaseLayout
+  title="Cara Mendirikan PKBM"
+  description="Panduan lengkap cara mendirikan PKBM: syarat, dokumen, alur izin operasional, dan tips mendirikan PKBM berbasis nilai Islam."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>Cara Mendirikan PKBM</h1>
+      <p>Panduan langkah demi langkah — dari badan hukum hingga operasional</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+
+      <div class="intro-box">
+        <h2>Mengapa Mendirikan PKBM?</h2>
+        <p>PKBM (Pusat Kegiatan Belajar Masyarakat) adalah satuan pendidikan non-formal yang diakui pemerintah. Bagi komunitas Islam, PKBM menjadi peluang emas untuk menyelenggarakan pendidikan kesetaraan yang bernilai islami, menjangkau masyarakat yang tidak terlayani oleh sekolah formal, sekaligus mendapatkan legalitas resmi dari negara.</p>
+        <div class="benefit-chips">
+          <span>✅ Diakui negara</span>
+          <span>✅ Dapat BOP pemerintah</span>
+          <span>✅ Fleksibel & mandiri</span>
+          <span>✅ Bernilai dakwah</span>
+        </div>
+      </div>
+
+      <h2 class="steps-title">Alur Pendirian PKBM</h2>
+
+      <div class="steps-list">
+        {steps.map(step => (
+          <div class="step-item">
+            <div class="step-num">{step.num}</div>
+            <div class="step-content">
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+              {step.docs.length > 0 && (
+                <div class="docs-list">
+                  <strong>📄 Dokumen:</strong>
+                  <ul>
+                    {step.docs.map(d => <li>{d}</li>)}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="tips-box">
+        <h2>💡 Tips dari PKBM Islam yang Sudah Berjalan</h2>
+        <ul class="tips-list">
+          <li><strong>Bangun komunitas dulu:</strong> Pastikan ada warga belajar yang nyata sebelum mengurus legalitas. Dinas Pendidikan akan menanyakan ini.</li>
+          <li><strong>Menginduk ke PKBM/sekolah yang sudah ada:</strong> Sebagai legalistas sebelum mendapatkan izin resmi. Tempat belajar bisa memanfaatkan fasilitas yang sudah ada untuk menekan biaya awal.</li>
+          <li><strong>Rekrut tutor yang sabar:</strong> Warga belajar PKBM sering memiliki latar belakang dan kemampuan yang beragam.</li>
+          <li><strong>Gunakan kurikulum nasional + muatan Islami:</strong> Paket A/B/C mengikuti kurikulum Kemendikdasmen, gunakan buku yang sesuai namun PKBM bebas menambah muatan keagamaan.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, var(--clr-primary-dark), var(--clr-primary));
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+  }
+  .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+
+  .intro-box {
+    background: var(--clr-primary-light);
+    border: 1px solid rgba(26,107,58,0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  .intro-box h2 { margin-bottom: 0.75rem; }
+  .intro-box p { color: var(--clr-text-muted); margin-bottom: 1.25rem; }
+  .benefit-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .benefit-chips span {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .steps-title { margin-bottom: 1.5rem; font-size: 1.5rem; }
+
+  .steps-list { display: flex; flex-direction: column; gap: 0; }
+  .step-item {
+    display: flex;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+    position: relative;
+  }
+  .step-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 40px;
+    bottom: 0;
+    width: 2px;
+    background: var(--clr-border);
+  }
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--clr-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .step-content { flex: 1; }
+  .step-content h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+  .step-content > p { color: var(--clr-text-muted); font-size: 0.93rem; margin-bottom: 0.75rem; }
+  .docs-list {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.88rem;
+  }
+  .docs-list strong { display: block; margin-bottom: 0.4rem; color: var(--clr-primary); }
+  .docs-list ul { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.2rem; }
+  .docs-list li { color: var(--clr-text-muted); }
+
+  .tips-box {
+    margin-top: 3rem;
+    background: var(--clr-accent-light);
+    border: 1px solid rgba(212,160,23,0.3);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .tips-box h2 { margin-bottom: 1.25rem; }
+  .tips-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .tips-list li { font-size: 0.93rem; color: var(--clr-text-muted); padding-left: 0; }
+  .tips-list strong { color: var(--clr-text); }
+</style>

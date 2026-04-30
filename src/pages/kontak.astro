@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Konsultasi & Kontak"
+  description="Hubungi kami untuk konsultasi seputar pendirian PKBM, program kesetaraan, atau berbagi profil PKBM Islam Anda."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>Konsultasi & Kontak</h1>
+      <p>Ada pertanyaan? Ingin berbagi profil PKBM Anda? Hubungi kami.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container contact-layout">
+
+      <div class="contact-info">
+        <h2>Apa yang bisa kami bantu?</h2>
+        <p>Portal ini hadir untuk memudahkan siapa saja yang ingin memahami atau mendirikan PKBM, khususnya yang berbasis nilai Islam.</p>
+
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-icon">📋</div>
+            <h3>Konsultasi Pendirian</h3>
+            <p>Pertanyaan seputar syarat, dokumen, dan proses izin operasional PKBM di daerah Anda.</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">🏫</div>
+            <h3>Submit Profil PKBM</h3>
+            <p>Punya PKBM Islam yang sudah berjalan? Bagikan pengalaman Anda untuk menginspirasi yang lain.</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">✍️</div>
+            <h3>Kontribusi Artikel</h3>
+            <p>Ingin menulis artikel atau berbagi kisah sukses PKBM di blog ini? Kami terbuka untuk kontributor.</p>
+          </div>
+        </div>
+
+        <div class="contact-channels">
+          <h3>Saluran Komunikasi</h3>
+          <p>
+            📧 Email: <a href="mailto:santoso.elin@live.com">email insyaAllah segera</a><br/>
+            💬 WhatsApp: (akan ditambahkan segera)
+          </p>
+          <p style="color: var(--clr-text-muted); font-size:0.88rem; margin-top:0.5rem;">
+            * insyaAllah menyusul
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+  }
+  .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+
+  .contact-layout { max-width: 720px; }
+
+  .contact-info h2 { margin-bottom: 0.75rem; }
+  .contact-info > p { color: var(--clr-text-muted); margin-bottom: 2rem; }
+
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .contact-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+  .contact-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+  .contact-card p { font-size: 0.88rem; color: var(--clr-text-muted); }
+
+  .contact-channels {
+    background: var(--clr-primary-light);
+    border: 1px solid rgba(26,107,58,0.2);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .contact-channels h3 { margin-bottom: 0.75rem; }
+  .contact-channels a { color: var(--clr-primary); font-weight: 600; }
+</style>

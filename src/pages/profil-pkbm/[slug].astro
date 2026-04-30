@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pkbmList = await getCollection('pkbm-profil');
+  return pkbmList.map(pkbm => ({
+    params: { slug: pkbm.slug },
+    props: { pkbm },
+  }));
+}
+
+const { pkbm } = Astro.props;
+const { Content } = await pkbm.render();
+---
+
+<BaseLayout
+  title={pkbm.data.nama}
+  description={pkbm.data.deskripsi}
+>
+  <div class="page-hero">
+    <div class="container">
+      <a href="/profil-pkbm" class="back-link">← Semua Profil PKBM</a>
+      <h1>{pkbm.data.nama}</h1>
+      <div class="meta-row">
+        <span>📍 {pkbm.data.kota}, {pkbm.data.provinsi}</span>
+        <span>📅 Berdiri {pkbm.data.tahunBerdiri}</span>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container profile-layout">
+
+      <div class="profile-main prose">
+        <Content />
+      </div>
+
+      <aside class="profile-sidebar">
+        <div class="sidebar-card">
+          <h3>Program</h3>
+          <ul>
+            {pkbm.data.program.map(p => <li><span class="tag">{p}</span></li>)}
+          </ul>
+        </div>
+
+        {pkbm.data.keunggulan.length > 0 && (
+          <div class="sidebar-card">
+            <h3>Keunggulan</h3>
+            <ul class="keunggulan-list">
+              {pkbm.data.keunggulan.map(k => <li>✅ {k}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {pkbm.data.website && (
+          <div class="sidebar-card">
+            <h3>Website</h3>
+            <a href={pkbm.data.website} target="_blank" rel="noopener" class="website-link">
+              🔗 {pkbm.data.website}
+            </a>
+          </div>
+        )}
+      </aside>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 2.5rem 0;
+  }
+  .back-link {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.75rem;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: #fff; }
+  .page-hero h1 { color: #fff; font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 0.5rem; }
+  .meta-row { display: flex; gap: 1.5rem; color: rgba(255,255,255,0.75); font-size: 0.88rem; }
+
+  .profile-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .profile-layout { grid-template-columns: 1fr; }
+    .profile-sidebar { order: -1; }
+  }
+
+  /* Prose */
+  .prose :global(h2) { font-size: 1.4rem; margin: 2rem 0 0.6rem; }
+  .prose :global(p) { margin-bottom: 1.1rem; line-height: 1.8; color: var(--clr-text); }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.4rem; margin-bottom: 1rem; }
+  .prose :global(li) { margin-bottom: 0.35rem; line-height: 1.7; }
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--clr-accent);
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--clr-accent-light);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-style: italic;
+    color: var(--clr-text-muted);
+  }
+
+  /* Sidebar */
+  .sidebar-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .sidebar-card h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--clr-primary);
+    margin-bottom: 0.75rem;
+    font-family: var(--font-sans);
+  }
+  .sidebar-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .keunggulan-list li { font-size: 0.88rem; color: var(--clr-text-muted); }
+
+  .website-link {
+    color: var(--clr-primary);
+    font-size: 0.88rem;
+    word-break: break-all;
+    text-decoration: underline;
+  }
+</style>

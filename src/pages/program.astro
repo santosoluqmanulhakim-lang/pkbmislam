@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Program PKBM"
+  description="Penjelasan lengkap program PKBM: Paket A (setara SD), Paket B (setara SMP), Paket C (setara SMA), dan program keterampilan vokasional."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>Program PKBM</h1>
+      <p>Jalur pendidikan non-formal yang diakui negara, terbuka untuk semua usia</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+
+      <div class="program-section" id="paket-a">
+        <div class="program-badge">📗 Paket A</div>
+        <h2>Paket A — Setara SD</h2>
+        <p>Program Paket A memberikan layanan pendidikan setara Sekolah Dasar (SD) bagi masyarakat yang belum pernah sekolah atau tidak tamat SD. Ijazah Paket A diakui secara nasional oleh Kemendikbudristek.</p>
+        <div class="info-grid">
+          <div class="info-box">
+            <strong>Sasaran</strong>
+            <p>Usia minimal 15 tahun ke atas yang belum memiliki ijazah SD / sederajat</p>
+          </div>
+          <div class="info-box">
+            <strong>Durasi</strong>
+            <p>Fleksibel, umumnya 2–4 semester tergantung kemampuan peserta</p>
+          </div>
+          <div class="info-box">
+            <strong>Ijazah</strong>
+            <p>Setara SD, dapat digunakan untuk mendaftar Paket B atau SMP</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="program-section" id="paket-b">
+        <div class="program-badge">📘 Paket B</div>
+        <h2>Paket B — Setara SMP</h2>
+        <p>Paket B memberikan kesempatan bagi masyarakat yang belum menyelesaikan pendidikan setara SMP. Ijazah Paket B diakui untuk melanjutkan ke jenjang Paket C atau SMA.</p>
+        <div class="info-grid">
+          <div class="info-box">
+            <strong>Sasaran</strong>
+            <p>Sudah memiliki ijazah Paket A atau SD, usia minimal 15 tahun</p>
+          </div>
+          <div class="info-box">
+            <strong>Durasi</strong>
+            <p>Umumnya 2–3 tahun atau disesuaikan kemampuan peserta</p>
+          </div>
+          <div class="info-box">
+            <strong>Ijazah</strong>
+            <p>Setara SMP, dapat digunakan untuk mendaftar Paket C atau SMA</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="program-section" id="paket-c">
+        <div class="program-badge">📙 Paket C</div>
+        <h2>Paket C — Setara SMA</h2>
+        <p>Paket C adalah program pendidikan kesetaraan tertinggi di PKBM, setara Sekolah Menengah Atas (SMA). Ijazah Paket C diakui untuk melamar pekerjaan maupun melanjutkan ke perguruan tinggi.</p>
+        <div class="info-grid">
+          <div class="info-box">
+            <strong>Sasaran</strong>
+            <p>Sudah memiliki ijazah Paket B atau SMP, semua usia</p>
+          </div>
+          <div class="info-box">
+            <strong>Durasi</strong>
+            <p>Umumnya 2–3 tahun, bisa dipercepat dengan uji kompetensi</p>
+          </div>
+          <div class="info-box">
+            <strong>Ijazah</strong>
+            <p>Setara SMA — diakui untuk SNBT/PTN dan berbagai lowongan kerja</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="program-section" id="keterampilan">
+        <div class="program-badge">🛠️ Keterampilan</div>
+        <h2>Program Keterampilan & Life Skills</h2>
+        <p>Di luar program kesetaraan, PKBM juga menyelenggarakan pelatihan keterampilan vokasional yang dapat dikombinasikan dengan program akademik atau berdiri sendiri.</p>
+        <div class="skill-list">
+          {['Menjahit & Tata Busana','Komputer & Teknologi Informasi','Kewirausahaan','Pertanian & Agribisnis','Tata Boga & Kuliner','Bahasa Arab & Al-Qur\'an','Kerajinan Tangan','Bengkel & Otomotif'].map(s => (
+            <span class="skill-chip">✓ {s}</span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+  }
+  .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+
+  .program-section { padding: 2.5rem 0; }
+  .program-badge {
+    display: inline-block;
+    background: var(--clr-primary-light);
+    color: var(--clr-primary);
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .program-section h2 { font-size: 1.7rem; margin-bottom: 0.75rem; }
+  .program-section > p { color: var(--clr-text-muted); max-width: 680px; margin-bottom: 1.5rem; }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .info-box {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .info-box strong { display: block; color: var(--clr-primary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+  .info-box p { font-size: 0.9rem; color: var(--clr-text-muted); }
+
+  .divider { border: none; border-top: 1px solid var(--clr-border); }
+
+  .skill-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .skill-chip {
+    background: var(--clr-accent-light);
+    border: 1px solid rgba(212,160,23,0.3);
+    color: #7a5c00;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+</style>

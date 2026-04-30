@@ -1,0 +1,371 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const pkbmList = (await getCollection('pkbm-profil')).slice(0, 3);
+---
+
+<BaseLayout title="Beranda" description="Portal informasi lengkap seputar PKBM Islam di Indonesia — panduan pendirian, program kesetaraan Paket A B C, dan profil lembaga.">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">🕌 Pendidikan Non-Formal Islami</div>
+        <h1>Informasi Lengkap<br/><em>Seputar PKBM</em></h1>
+        <p class="hero-desc">
+          Panduan mendirikan PKBM, mengenal program kesetaraan Paket A, B, C,
+          serta profil PKBM Islam yang telah berkiprah di berbagai daerah.
+        </p>
+        <div class="hero-actions">
+          <a href="/pendirian" class="btn btn-primary">Cara Mendirikan PKBM →</a>
+          <a href="/program" class="btn btn-outline">Lihat Program</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Program Kesetaraan</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">7+</span>
+          <span class="stat-label">Langkah Pendirian</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Berbagi Info</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Program Unggulan -->
+  <section class="programs">
+    <div class="container">
+      <h2 class="section-title">Program PKBM</h2>
+      <p class="section-subtitle">Tiga jalur pendidikan kesetaraan yang diakui negara</p>
+      <div class="program-grid">
+        <a href="/program#paket-a" class="program-card">
+          <div class="program-icon">📗</div>
+          <h3>Paket A</h3>
+          <p>Setara SD — untuk peserta didik yang belum menyelesaikan pendidikan dasar 6 tahun.</p>
+          <span class="program-link">Selengkapnya →</span>
+        </a>
+        <a href="/program#paket-b" class="program-card">
+          <div class="program-icon">📘</div>
+          <h3>Paket B</h3>
+          <p>Setara SMP — membuka akses pendidikan menengah pertama bagi masyarakat putus sekolah.</p>
+          <span class="program-link">Selengkapnya →</span>
+        </a>
+        <a href="/program#paket-c" class="program-card">
+          <div class="program-icon">📙</div>
+          <h3>Paket C</h3>
+          <p>Setara SMA — ijazah diakui untuk melanjutkan ke perguruan tinggi atau melamar kerja.</p>
+          <span class="program-link">Selengkapnya →</span>
+        </a>
+        <a href="/program#keterampilan" class="program-card program-card--accent">
+          <div class="program-icon">🛠️</div>
+          <h3>Keterampilan & Life Skills</h3>
+          <p>Program vokasional: menjahit, komputer, wirausaha, pertanian, dan bidang lainnya.</p>
+          <span class="program-link">Selengkapnya →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pendirian Cepat -->
+  <section class="pendirian-cta">
+    <div class="container">
+      <div class="pendirian-box">
+        <div class="pendirian-text">
+          <h2>Ingin Mendirikan PKBM?</h2>
+          <p>Kami rangkum panduan lengkap: syarat, dokumen, alur izin operasional, hingga tips membangun PKBM yang berlandaskan nilai Islam.</p>
+          <a href="/pendirian" class="btn btn-primary">Baca Panduan Pendirian →</a>
+        </div>
+        <div class="pendirian-steps">
+          <div class="step"><span>1</span> Bentuk Yayasan / Lembaga</div>
+          <div class="step"><span>2</span> Siapkan Dokumen Legalitas</div>
+          <div class="step"><span>3</span> Daftarkan ke Dinas Pendidikan</div>
+          <div class="step"><span>4</span> Masuk Data Dapodik & NISN</div>
+          <div class="step"><span>5</span> Mulai Operasional</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profil PKBM -->
+  {pkbmList.length > 0 && (
+    <section class="profil-section">
+      <div class="container">
+        <h2 class="section-title">Profil PKBM Islam</h2>
+        <p class="section-subtitle">Lembaga-lembaga yang telah berhasil menjalankan PKBM berbasis nilai Islam</p>
+        <div class="pkbm-grid">
+          {pkbmList.map(pkbm => (
+            <a href={`/profil-pkbm/${pkbm.slug}`} class="pkbm-card">
+              <div class="pkbm-header">
+                <h3>{pkbm.data.nama}</h3>
+                <span class="tag">{pkbm.data.kota}</span>
+              </div>
+              <p class="pkbm-desc">{pkbm.data.deskripsi}</p>
+              <div class="pkbm-programs">
+                {pkbm.data.program.slice(0,3).map(p => <span class="tag">{p}</span>)}
+              </div>
+            </a>
+          ))}
+        </div>
+        <div style="text-align:center; margin-top:2rem;">
+          <a href="/profil-pkbm" class="btn btn-outline">Lihat Semua Profil →</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Blog Terbaru -->
+  {posts.length > 0 && (
+    <section class="blog-section">
+      <div class="container">
+        <h2 class="section-title">Artikel Terbaru</h2>
+        <p class="section-subtitle">Wawasan, panduan, dan inspirasi seputar pendidikan non-formal</p>
+        <div class="blog-grid">
+          {posts.map(post => (
+            <a href={`/blog/${post.slug}`} class="blog-card">
+              <div class="blog-date">{post.data.pubDate.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <div class="blog-tags">
+                {post.data.tags.slice(0,2).map(t => <span class="tag">{t}</span>)}
+              </div>
+            </a>
+          ))}
+        </div>
+        <div style="text-align:center; margin-top:2rem;">
+          <a href="/blog" class="btn btn-outline">Semua Artikel →</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ Cuplikan -->
+  <section class="faq-preview">
+    <div class="container">
+      <div class="faq-box">
+        <h2>Pertanyaan Umum</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Apakah ijazah PKBM diakui secara nasional?</summary>
+            <p>Ya. Ijazah Paket A, B, dan C setara dengan ijazah SD, SMP, dan SMA. Diakui oleh Kemendikbudristek dan dapat digunakan untuk melanjutkan pendidikan atau melamar pekerjaan.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Berapa biaya mendirikan PKBM?</summary>
+            <p>Biaya bervariasi tergantung daerah. Umumnya meliputi biaya pengurusan akta yayasan, legalisir dokumen, dan operasional awal. Tidak ada biaya khusus yang ditetapkan pemerintah untuk pendaftaran PKBM.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Apakah PKBM bisa mendapat bantuan dari pemerintah?</summary>
+            <p>Ya, PKBM yang sudah terdaftar di Dapodik berhak mengajukan berbagai bantuan dari Kemendikbudristek maupun pemerintah daerah, seperti BOP (Biaya Operasional Pendidikan).</p>
+          </details>
+        </div>
+        <a href="/faq" class="btn btn-outline" style="margin-top:1.5rem;">Lihat Semua FAQ →</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--clr-primary-dark) 0%, var(--clr-primary) 60%, #2d9e5f 100%);
+    color: #fff;
+    padding: 5rem 0 4rem;
+  }
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .hero h1 em { color: var(--clr-accent); font-style: italic; }
+  .hero-desc {
+    font-size: 1.08rem;
+    color: rgba(255,255,255,0.85);
+    max-width: 520px;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+  .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .hero-actions .btn-outline { border-color: rgba(255,255,255,0.6); color: #fff; }
+  .hero-actions .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.8rem;
+    text-align: center;
+    backdrop-filter: blur(4px);
+  }
+  .stat-num { display: block; font-size: 2rem; font-weight: 800; color: var(--clr-accent); }
+  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.75); }
+
+  @media (max-width: 768px) {
+    .hero .container { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: row; }
+    .stat-card { flex: 1; }
+  }
+
+  /* Programs */
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+  .program-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+    transition: all 0.2s;
+    display: block;
+  }
+  .program-card:hover {
+    border-color: var(--clr-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+  .program-card--accent { border-left: 4px solid var(--clr-accent); }
+  .program-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .program-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .program-card p { font-size: 0.9rem; color: var(--clr-text-muted); margin-bottom: 1rem; }
+  .program-link { font-size: 0.85rem; font-weight: 600; color: var(--clr-primary); }
+
+  /* Pendirian CTA */
+  .pendirian-box {
+    background: var(--clr-primary-light);
+    border: 1px solid rgba(26,107,58,0.2);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .pendirian-text h2 { margin-bottom: 0.75rem; }
+  .pendirian-text p { color: var(--clr-text-muted); margin-bottom: 1.25rem; font-size: 0.95rem; }
+  .pendirian-steps { display: flex; flex-direction: column; gap: 0.6rem; }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .step span {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--clr-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  @media (max-width: 640px) {
+    .pendirian-box { grid-template-columns: 1fr; }
+  }
+
+  /* PKBM Grid */
+  .pkbm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .pkbm-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: block;
+    transition: all 0.2s;
+  }
+  .pkbm-card:hover { border-color: var(--clr-primary); box-shadow: var(--shadow-md); }
+  .pkbm-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .pkbm-header h3 { font-size: 1.05rem; }
+  .pkbm-desc { font-size: 0.88rem; color: var(--clr-text-muted); margin-bottom: 0.75rem; }
+  .pkbm-programs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  /* Blog */
+  .blog-section { background: var(--clr-primary-light); }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .blog-card {
+    background: var(--clr-surface);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: block;
+    border: 1px solid var(--clr-border);
+    transition: all 0.2s;
+  }
+  .blog-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .blog-date { font-size: 0.78rem; color: var(--clr-text-muted); margin-bottom: 0.5rem; }
+  .blog-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .blog-card p { font-size: 0.88rem; color: var(--clr-text-muted); margin-bottom: 0.75rem; }
+  .blog-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+  /* FAQ */
+  .faq-box {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .faq-box h2 { margin-bottom: 1.5rem; }
+  .faq-list { text-align: left; display: flex; flex-direction: column; gap: 0.75rem; }
+  .faq-item {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .faq-item summary {
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+  }
+  .faq-item summary::after { content: '+'; font-size: 1.2rem; color: var(--clr-primary); }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item p { padding: 0 1.25rem 1rem; font-size: 0.9rem; color: var(--clr-text-muted); border-top: 1px solid var(--clr-border); padding-top: 0.75rem; }
+</style>
