@@ -12,6 +12,17 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+const allPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const currentIndex = allPosts.findIndex(p => p.slug === post.slug);
+const prev = allPosts[currentIndex + 1] ?? null;
+const next = allPosts[currentIndex - 1] ?? null;
+
+const related = allPosts
+  .filter(p => p.slug !== post.slug && p.data.tags.some(t => post.data.tags.includes(t)))
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -42,6 +53,39 @@ const { Content } = await post.render();
         <Content />
       </div>
     </div>
+    <!-- Navigasi prev/next -->
+<nav class="post-nav">
+  {prev && (
+    <a href={`/blog/${prev.slug}`} class="post-nav-item prev">
+      <span>← Sebelumnya</span>
+      <strong>{prev.data.title}</strong>
+    </a>
+  )}
+  {next && (
+    <a href={`/blog/${next.slug}`} class="post-nav-item next">
+      <span>Berikutnya →</span>
+      <strong>{next.data.title}</strong>
+    </a>
+  )}
+</nav>
+
+<!-- Artikel terkait -->
+{related.length > 0 && (
+  <aside class="related-posts">
+    <h3>Artikel Terkait</h3>
+    <div class="related-grid">
+      {related.map(p => (
+        <a href={`/blog/${p.slug}`} class="related-card">
+          <span class="related-date">
+            {p.data.pubDate.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' })}
+          </span>
+          <strong>{p.data.title}</strong>
+          <p>{p.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </aside>
+)}
   </article>
 </BaseLayout>
 
@@ -93,6 +137,49 @@ const { Content } = await post.render();
     margin: 3rem auto;
     padding-bottom: 4rem;
   }
+
+  .post-nav {
+  max-width: 720px;
+  margin: 0 auto 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.post-nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s;
+}
+.post-nav-item:hover { border-color: var(--clr-primary); }
+.post-nav-item span { font-size: 0.78rem; color: var(--clr-text-muted); }
+.post-nav-item strong { font-size: 0.92rem; line-height: 1.4; }
+.post-nav-item.next { text-align: right; }
+
+.related-posts {
+  max-width: 720px;
+  margin: 0 auto 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--clr-border);
+}
+.related-posts h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  transition: all 0.2s;
+}
+.related-card:hover { border-color: var(--clr-primary); box-shadow: var(--shadow-sm); }
+.related-date { font-size: 0.75rem; color: var(--clr-text-muted); }
+.related-card strong { font-size: 0.9rem; line-height: 1.4; }
+.related-card p { font-size: 0.82rem; color: var(--clr-text-muted); }
 
   /* Prose styles */
   .prose :global(h2) { font-size: 1.5rem; margin: 2rem 0 0.75rem; }

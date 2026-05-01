@@ -8,7 +8,7 @@ tags: ["PKBM", "Manajemen", "Tantangan"]
 
 ## Pendahuluan
 
-Banyak yang antusias mendirikan PKBM, namun tidak sedikit yang tumbang di tahun pertama. Bukan karena niat yang kurang kuat, melainkan karena tidak siap menghadapi tantangan lapangan.
+Banyak yang antusias mendirikan PKBM, qodarullah tidak sedikit yang tumbang di tahun pertama. Bukan karena semangat dan nita yang kurang kuat, melainkan karena tidak siap menghadapi tantangan lapangan.
 
 Berikut 5 tantangan paling umum beserta strategi mengatasinya.
 
@@ -16,13 +16,13 @@ Berikut 5 tantangan paling umum beserta strategi mengatasinya.
 
 Banyak calon warga belajar malu atau tidak percaya diri mendaftar. Mereka khawatir dicap "tidak lulus sekolah".
 
-**Solusi:** Bangun kepercayaan melalui pendekatan personal, libatkan tokoh masyarakat atau ulama setempat sebagai endorser, dan tekankan bahwa belajar di PKBM adalah pilihan cerdas, bukan aib.
+**Solusi:** Meskipun di komunitas islam yang sudah mengenal sunnah hal ini sudah mulai berubah, kita tetap perlu mengedukasi tentang keunggulan dan fleksibiltas program PKBM..
 
 ## 2. Keterbatasan Tutor Berkualitas
 
-Tidak mudah mencari tutor yang sabar, paham kondisi warga belajar orang dewasa, dan bersedia dibayar seadanya di awal.
+Tidak mudah mencari tutor yang sabar, paham kondisi warga belajar orang dewasa, dengan mukafaah yang belum standar di awal.
 
-**Solusi:** Manfaatkan alumni pesantren, mahasiswa, atau guru honorer yang termotivasi. Berikan insentif non-materi seperti sertifikat pengalaman mengajar.
+**Solusi:** Manfaatkan alumni pesantren, mahasiswa, atau guru honorer yang termotivasi. Berikan insentif non-materi seperti sertifikat pengalaman mengajar dan usahakan insentif lainnya sebagai apresiasi.
 
 ## 3. Biaya Operasional di Awal
 
@@ -38,10 +38,10 @@ Setiap daerah memiliki alur yang sedikit berbeda. Tidak jarang ada dokumen yang 
 
 ## 5. Warga Belajar Tidak Konsisten Hadir
 
-Warga belajar orang dewasa punya banyak prioritas — pekerjaan, keluarga, dan lainnya.
+Warga belajar terutama orang dewasa punya banyak prioritas — pekerjaan, keluarga, dan lainnya.
 
-**Solusi:** Jadwal belajar yang fleksibel (malam hari atau akhir pekan), sistem kelompok kecil yang saling mendukung, dan pendekatan komunitas yang hangat.
+**Solusi:** Jadwal belajar yang fleksibel, sistem kelompok kecil yang saling mendukung, dan pendekatan komunitas yang kekeluargaan.
 
 ## Penutup
 
-Setiap tantangan di atas bisa diatasi dengan perencanaan yang matang dan niat yang lurus. PKBM yang bertahan adalah yang membangun komunitas, bukan sekadar lembaga.
+Setiap tantangan di atas bisa diatasi dengan perencanaan yang matang dan niat yang lurus, bi-idznillah. PKBM yang bertahan adalah yang membangun komunitas, bukan sekadar lembaga.

@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Program PKBM"
-  description="Penjelasan lengkap program PKBM: Paket A (setara SD), Paket B (setara SMP), Paket C (setara SMA), dan program keterampilan vokasional."
+  description="Penjelasan lengkap program PKBM: Paket A (setara SD), Paket B (setara SMP), Paket C (setara SMA), dan program keterampilan vokasional beserta sistem SKK terbaru."
 >
 
   <div class="page-hero">
@@ -17,22 +17,49 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section>
     <div class="container">
 
+      <div class="skk-box">
+        <h2>Sistem Beban Belajar: SKK</h2>
+        <p>Seluruh program kesetaraan di PKBM menggunakan sistem <strong>Satuan Kredit Kompetensi (SKK)</strong> sebagai ukuran beban belajar. Satu SKK dicapai melalui salah satu dari:</p>
+        <div class="skk-grid">
+          <div class="skk-item">
+            <span class="skk-icon">🏫</span>
+            <strong>1 JP Tatap Muka</strong>
+            <span>Bersama tutor di kelas</span>
+          </div>
+          <div class="skk-item">
+            <span class="skk-icon">👥</span>
+            <strong>2 JP Tutorial</strong>
+            <span>Diskusi kelompok terbimbing</span>
+          </div>
+          <div class="skk-item">
+            <span class="skk-icon">📖</span>
+            <strong>3 JP Mandiri</strong>
+            <span>Belajar sendiri di rumah</span>
+          </div>
+        </div>
+        <p class="skk-note">
+          Durasi 1 JP: <strong>35 menit</strong> (Paket A) &bull; <strong>40 menit</strong> (Paket B) &bull; <strong>45 menit</strong> (Paket C). Asumsi 1 tahun = 36 minggu efektif.
+        </p>
+      </div>
+
+      <hr class="divider" />
+
       <div class="program-section" id="paket-a">
-        <div class="program-badge">📗 Paket A</div>
-        <h2>Paket A — Setara SD</h2>
-        <p>Program Paket A memberikan layanan pendidikan setara Sekolah Dasar (SD) bagi masyarakat yang belum pernah sekolah atau tidak tamat SD. Ijazah Paket A diakui secara nasional oleh Kemendikbudristek.</p>
+        <div class="program-badge">Paket A</div>
+        <h2>Paket A — Setara SD/MI</h2>
+        <p>Program Paket A memberikan layanan pendidikan setara Sekolah Dasar (SD/MI) bagi masyarakat yang belum pernah sekolah atau tidak tamat SD. Ijazah Paket A diakui secara nasional oleh Kemendikdasmen.</p>
         <div class="info-grid">
           <div class="info-box">
             <strong>Sasaran</strong>
-            <p>Usia minimal 15 tahun ke atas yang belum memiliki ijazah SD / sederajat</p>
+            <p>Masyarakat yang belum memiliki ijazah SD/MI, tanpa batasan usia atas. Prioritas usia 7–12 tahun atau dewasa yang belum sempat bersekolah.</p>
           </div>
           <div class="info-box">
-            <strong>Durasi</strong>
-            <p>Fleksibel, umumnya 2–4 semester tergantung kemampuan peserta</p>
+            <strong>Durasi & Beban Belajar</strong>
+            <p>Program 6 tingkat (setara kelas 1–6 SD). Beban belajar dinyatakan dalam SKK. 1 JP tatap muka = 35 menit. Peserta yang aktif dan konsisten dapat menyelesaikan lebih cepat melalui kombinasi tatap muka, tutorial, dan belajar mandiri.</p>
           </div>
           <div class="info-box">
-            <strong>Ijazah</strong>
-            <p>Setara SD, dapat digunakan untuk mendaftar Paket B atau SMP</p>
+            <strong>Ujian & Ijazah</strong>
+            <p>Mengikuti Uji Pendidikan Kesetaraan (UPK-BK). Ijazah setara SD/MI, dapat digunakan untuk mendaftar ke Paket B atau SMP.</p>
           </div>
         </div>
       </div>
@@ -40,21 +67,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <hr class="divider" />
 
       <div class="program-section" id="paket-b">
-        <div class="program-badge">📘 Paket B</div>
-        <h2>Paket B — Setara SMP</h2>
-        <p>Paket B memberikan kesempatan bagi masyarakat yang belum menyelesaikan pendidikan setara SMP. Ijazah Paket B diakui untuk melanjutkan ke jenjang Paket C atau SMA.</p>
+        <div class="program-badge">Paket B</div>
+        <h2>Paket B — Setara SMP/MTs</h2>
+        <p>Paket B memberikan kesempatan bagi masyarakat yang belum menyelesaikan pendidikan setara SMP/MTs. Ijazah Paket B diakui untuk melanjutkan ke jenjang Paket C atau SMA.</p>
         <div class="info-grid">
           <div class="info-box">
             <strong>Sasaran</strong>
-            <p>Sudah memiliki ijazah Paket A atau SD, usia minimal 15 tahun</p>
+            <p>Sudah memiliki ijazah Paket A atau SD/MI sederajat. Terbuka untuk semua usia, termasuk dewasa dan pekerja.</p>
           </div>
           <div class="info-box">
-            <strong>Durasi</strong>
-            <p>Umumnya 2–3 tahun atau disesuaikan kemampuan peserta</p>
+            <strong>Durasi & Beban Belajar</strong>
+            <p>Program 3 tahun (setara kelas 7–9 SMP), mengikuti standar nasional. 1 JP tatap muka = 40 menit. Wajib memenuhi jumlah SKK minimum per tingkat sebelum naik jenjang.</p>
           </div>
           <div class="info-box">
-            <strong>Ijazah</strong>
-            <p>Setara SMP, dapat digunakan untuk mendaftar Paket C atau SMA</p>
+            <strong>Ujian & Ijazah</strong>
+            <p>Mengikuti Uji Pendidikan Kesetaraan (UPK-BK). Ijazah setara SMP/MTs, dapat digunakan untuk mendaftar Paket C atau SMA/SMK.</p>
           </div>
         </div>
       </div>
@@ -62,21 +89,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <hr class="divider" />
 
       <div class="program-section" id="paket-c">
-        <div class="program-badge">📙 Paket C</div>
-        <h2>Paket C — Setara SMA</h2>
-        <p>Paket C adalah program pendidikan kesetaraan tertinggi di PKBM, setara Sekolah Menengah Atas (SMA). Ijazah Paket C diakui untuk melamar pekerjaan maupun melanjutkan ke perguruan tinggi.</p>
+        <div class="program-badge">Paket C</div>
+        <h2>Paket C — Setara SMA/MA</h2>
+        <p>Paket C adalah program pendidikan kesetaraan tertinggi di PKBM, setara Sekolah Menengah Atas (SMA/MA). Ijazah Paket C diakui untuk melamar pekerjaan maupun melanjutkan ke perguruan tinggi termasuk PTN melalui jalur SNBT.</p>
         <div class="info-grid">
           <div class="info-box">
             <strong>Sasaran</strong>
-            <p>Sudah memiliki ijazah Paket B atau SMP, semua usia</p>
+            <p>Sudah memiliki ijazah Paket B atau SMP/MTs sederajat. Terbuka untuk semua usia.</p>
           </div>
           <div class="info-box">
-            <strong>Durasi</strong>
-            <p>Umumnya 2–3 tahun, bisa dipercepat dengan uji kompetensi</p>
+            <strong>Durasi & Beban Belajar</strong>
+            <p>Program 3 tahun (setara kelas 10–12 SMA), sesuai standar nasional. 1 JP tatap muka = 45 menit. Peserta wajib memenuhi SKK minimum per semester dan memiliki laporan hasil belajar tiap tingkatan sebagai syarat mengikuti UPK-BK.</p>
           </div>
           <div class="info-box">
-            <strong>Ijazah</strong>
-            <p>Setara SMA — diakui untuk SNBT/PTN dan berbagai lowongan kerja</p>
+            <strong>Ujian & Ijazah</strong>
+            <p>Mengikuti Uji Pendidikan Kesetaraan (UPK-BK). Ijazah setara SMA/MA — diakui untuk SNBT/PTN dan berbagai lowongan kerja pemerintah maupun swasta.</p>
           </div>
         </div>
       </div>
@@ -84,13 +111,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <hr class="divider" />
 
       <div class="program-section" id="keterampilan">
-        <div class="program-badge">🛠️ Keterampilan</div>
+        <div class="program-badge">Keterampilan</div>
         <h2>Program Keterampilan & Life Skills</h2>
-        <p>Di luar program kesetaraan, PKBM juga menyelenggarakan pelatihan keterampilan vokasional yang dapat dikombinasikan dengan program akademik atau berdiri sendiri.</p>
+        <p>Di luar program kesetaraan, PKBM juga menyelenggarakan pelatihan keterampilan vokasional yang dapat dikombinasikan dengan program akademik atau berdiri sendiri. Program ini masuk dalam komponen <em>pemberdayaan dan keterampilan berbasis Profil Pelajar</em> sesuai kurikulum terbaru.</p>
         <div class="skill-list">
-          {['Menjahit & Tata Busana','Komputer & Teknologi Informasi','Kewirausahaan','Pertanian & Agribisnis','Tata Boga & Kuliner','Bahasa Arab & Al-Qur\'an','Kerajinan Tangan','Bengkel & Otomotif'].map(s => (
-            <span class="skill-chip">✓ {s}</span>
-          ))}
+          <span class="skill-chip">Menjahit & Tata Busana</span>
+          <span class="skill-chip">Komputer & Teknologi Informasi</span>
+          <span class="skill-chip">Kewirausahaan</span>
+          <span class="skill-chip">Pertanian & Agribisnis</span>
+          <span class="skill-chip">Tata Boga & Kuliner</span>
+          <span class="skill-chip">Bahasa Arab & Al-Qur'an</span>
+          <span class="skill-chip">Kerajinan Tangan</span>
+          <span class="skill-chip">Bengkel & Otomotif</span>
+        </div>
+        <div class="info-box" style="margin-top:1.25rem; max-width:560px;">
+          <strong>Catatan Regulasi</strong>
+          <p>Berdasarkan Permendikdasmen No. 11 Tahun 2025, tutor pendidikan kesetaraan dihitung setara 1 jam tatap muka dengan maksimal 6 jam per minggu.</p>
         </div>
       </div>
 
@@ -108,6 +144,43 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
   .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
 
+  .skk-box {
+    background: var(--clr-accent-light);
+    border: 1px solid rgba(212,160,23,0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .skk-box h2 { margin-bottom: 0.75rem; font-size: 1.3rem; }
+  .skk-box > p { color: var(--clr-text-muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+  .skk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .skk-item {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    border: 1px solid rgba(212,160,23,0.2);
+  }
+  .skk-icon { font-size: 1.5rem; }
+  .skk-item strong { font-size: 0.92rem; color: var(--clr-text); }
+  .skk-item span { font-size: 0.8rem; color: var(--clr-text-muted); }
+  .skk-note {
+    font-size: 0.88rem;
+    color: var(--clr-text-muted);
+    background: rgba(255,255,255,0.6);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    margin: 0;
+  }
+
   .program-section { padding: 2.5rem 0; }
   .program-badge {
     display: inline-block;
@@ -120,7 +193,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin-bottom: 0.75rem;
   }
   .program-section h2 { font-size: 1.7rem; margin-bottom: 0.75rem; }
-  .program-section > p { color: var(--clr-text-muted); max-width: 680px; margin-bottom: 1.5rem; }
+  .program-section > p { color: var(--clr-text-muted); max-width: 680px; margin-bottom: 1.5rem; font-size: 0.95rem; }
 
   .info-grid {
     display: grid;
@@ -134,7 +207,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     padding: 1.25rem;
   }
   .info-box strong { display: block; color: var(--clr-primary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
-  .info-box p { font-size: 0.9rem; color: var(--clr-text-muted); }
+  .info-box p { font-size: 0.9rem; color: var(--clr-text-muted); line-height: 1.65; }
 
   .divider { border: none; border-top: 1px solid var(--clr-border); }
 

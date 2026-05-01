@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://pkbm-info.web.id/sitemap-index.xml
+Sitemap: https://pkbmislam.id/sitemap-index.xml
