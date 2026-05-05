@@ -11,7 +11,7 @@ keunggulan:
   - "Terintegrasi dengan program tahfizhul qur`an (1 juz per tahun)"
   - "Beasiswa bagi yang membutuhkan"
 maps: "https://maps.app.go.gl/Bogor"
-kontak: "082111192121"
+kontak: "0821..."
 email: "insyaAllah@segera.nyusul"
 ---
 

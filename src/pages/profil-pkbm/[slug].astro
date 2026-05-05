@@ -147,7 +147,9 @@ const { Content } = await pkbm.render();
   }
   .sidebar-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
 
-  .keunggulan-list li { font-size: 0.88rem; color: var(--clr-text-muted); }
+  .keunggulan-list li { font-size: 0.88rem; color: var(--clr-text-muted); overflow-wrap: break-word; word-break: break-word; }
+
+  .sidebar-card p { overflow-wrap: break-word; word-break: break-word; }
 
   .website-link {
     color: var(--clr-primary);
