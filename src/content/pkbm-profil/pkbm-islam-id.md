@@ -4,12 +4,15 @@ kota: "Bogor"
 provinsi: "Jawa Barat"
 tahunBerdiri: 2018
 program: ["Paket A", "Paket B", "Paket C", "Keterampilan Memasak", "Tahfizhul Qur`an", "Otomotif", "Desain Web"]
-website: ""
+website: "https://pkbmislam.id"
 deskripsi: "PKBM di bawah naungan Yayasan PKBM Islam Indonesia yang melayani warga di wilayah pinggiran Kota Bogor dengan pendekatan kekeluargaan dan nuansa islami."
 keunggulan:
   - "Pembelajaran malam hari untuk mengakomodasi warga belajar yang bekerja"
   - "Terintegrasi dengan program tahfizhul qur`an (1 juz per tahun)"
   - "Beasiswa bagi yang membutuhkan"
+maps: "https://maps.app.go.gl/Bogor"
+kontak: "082111192121"
+email: "insyaAllah@segera.nyusul"
 ---
 
 ## Tentang PKBM Islam Indonesia

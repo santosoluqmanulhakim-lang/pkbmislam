@@ -24,6 +24,9 @@ const pkbmProfil = defineCollection({
     deskripsi: z.string(),
     keunggulan: z.array(z.string()).optional().default([]),
     image: z.string().optional(),
+    maps: z.string().optional().default(''),
+    kontak: z.string().optional().default(''),
+    email: z.string().optional().default(''),
   }),
 });
 

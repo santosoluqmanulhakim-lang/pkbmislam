@@ -3,5 +3,9 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://pkbmislam.id', // nama domain
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/kontribusi-pkbmii2121'),
+    }),
+  ],
 });

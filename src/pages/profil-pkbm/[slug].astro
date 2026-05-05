@@ -61,6 +61,24 @@ const { Content } = await pkbm.render();
             </a>
           </div>
         )}
+
+        {pkbm.data.kontak && (
+          <div class="sidebar-card">
+            <h3>Kontak</h3>
+            <p>📞 {pkbm.data.kontak}</p>
+            {pkbm.data.email && <p>✉️ {pkbm.data.email}</p>}
+          </div>
+        )}
+
+        {pkbm.data.maps && (
+          <div class="sidebar-card">
+            <h3>Lokasi</h3>
+            <a href={pkbm.data.maps} target="_blank" rel="noopener" class="website-link">
+              📍 Lihat di Google Maps
+            </a>
+          </div>
+        )}
+
       </aside>
 
     </div>

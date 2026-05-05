@@ -188,6 +188,26 @@ const pkbmList = (await getCollection('pkbm-profil')).slice(0, 3);
     gap: 3rem;
     align-items: center;
   }
+  @media (max-width: 768px) {
+    .hero .container {
+      grid-template-columns: 1fr;
+    }
+    .hero-stats {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .stat-card {
+      flex: 1;
+      padding: 0.9rem 0.5rem;
+    }
+    .hero-actions {
+      flex-direction: column;
+    }
+    .hero-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
   .hero-badge {
     display: inline-block;
     background: rgba(255,255,255,0.15);
