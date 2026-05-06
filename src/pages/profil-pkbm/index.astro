@@ -4,6 +4,17 @@ import { getCollection } from 'astro:content';
 
 const pkbmList = (await getCollection('pkbm-profil'))
   .sort((a, b) => a.data.nama.localeCompare(b.data.nama));
+
+const pkbmData = pkbmList.map(p => ({
+  slug: p.slug,
+  nama: p.data.nama,
+  kota: p.data.kota,
+  provinsi: p.data.provinsi,
+  tahunBerdiri: p.data.tahunBerdiri,
+  deskripsi: p.data.deskripsi,
+  program: p.data.program,
+  keunggulan: p.data.keunggulan,
+}));
 ---
 
 <BaseLayout
@@ -20,40 +31,123 @@ const pkbmList = (await getCollection('pkbm-profil'))
 
   <section>
     <div class="container">
+
       {pkbmList.length === 0 ? (
         <div class="empty-state">
           <p>📋 Profil PKBM segera ditambahkan.</p>
         </div>
       ) : (
-        <div class="pkbm-grid">
-          {pkbmList.map(pkbm => (
-            <a href={`/profil-pkbm/${pkbm.slug}`} class="pkbm-card">
-              <div class="pkbm-header">
-                <div>
-                  <h2>{pkbm.data.nama}</h2>
-                  <div class="pkbm-location">📍 {pkbm.data.kota}, {pkbm.data.provinsi}</div>
-                </div>
-                <div class="pkbm-year">Est. {pkbm.data.tahunBerdiri}</div>
-              </div>
-              <p class="pkbm-desc">{pkbm.data.deskripsi}</p>
-              <div class="pkbm-programs">
-                {pkbm.data.program.map(p => <span class="tag">{p}</span>)}
-              </div>
-              {pkbm.data.keunggulan.length > 0 && (
-                <div class="pkbm-keunggulan">
-                  <strong>Keunggulan:</strong>
-                  <span>{pkbm.data.keunggulan[0]}</span>
-                </div>
-              )}
-              <span class="read-more">Lihat profil lengkap →</span>
-            </a>
-          ))}
-        </div>
+        <>
+          <div class="filter-bar">
+            <input id="search" type="text" placeholder="Cari nama PKBM atau kota..." />
+            <select id="filter-provinsi">
+              <option value="">Semua Provinsi</option>
+            </select>
+            <select id="filter-kota">
+              <option value="">Semua Kota</option>
+            </select>
+            <span id="result-count"></span>
+          </div>
+
+          <div class="pkbm-grid" id="pkbm-grid"></div>
+          <div id="pagination" class="pagination"></div>
+        </>
       )}
+
     </div>
   </section>
 
 </BaseLayout>
+
+<script define:vars={{ pkbmData }}>
+const PER_PAGE = 9;
+let page = 1;
+let filtered = [...pkbmData];
+
+// Populate provinsi dropdown
+const provinsis = [...new Set(pkbmData.map(p => p.provinsi))].sort();
+const selProv = document.getElementById('filter-provinsi');
+provinsis.forEach(p => selProv.innerHTML += `<option value="${p}">${p}</option>`);
+
+// Populate semua kota awal
+function populateKota(prov) {
+  const kotas = [...new Set(pkbmData.filter(p => !prov || p.provinsi === prov).map(p => p.kota))].sort();
+  const selKota = document.getElementById('filter-kota');
+  selKota.innerHTML = '<option value="">Semua Kota</option>';
+  kotas.forEach(k => selKota.innerHTML += `<option value="${k}">${k}</option>`);
+}
+populateKota('');
+
+function applyFilter() {
+  const q    = document.getElementById('search').value.toLowerCase();
+  const prov = document.getElementById('filter-provinsi').value;
+  const kota = document.getElementById('filter-kota').value;
+
+  filtered = pkbmData.filter(p =>
+    (!q    || p.nama.toLowerCase().includes(q) || p.kota.toLowerCase().includes(q)) &&
+    (!prov || p.provinsi === prov) &&
+    (!kota || p.kota === kota)
+  );
+  page = 1;
+  render();
+}
+
+function render() {
+  const grid  = document.getElementById('pkbm-grid');
+  const start = (page - 1) * PER_PAGE;
+  const items = filtered.slice(start, start + PER_PAGE);
+
+  document.getElementById('result-count').textContent =
+    filtered.length + ' PKBM ditemukan';
+
+  if (items.length === 0) {
+    grid.innerHTML = '<p class="no-result">Tidak ada PKBM yang sesuai filter.</p>';
+  } else {
+    grid.innerHTML = items.map(p => `
+      <a href="/profil-pkbm/${p.slug}" class="pkbm-card">
+        <div class="pkbm-header">
+          <div>
+            <h2>${p.nama}</h2>
+            <div class="pkbm-location">📍 ${p.kota}, ${p.provinsi}</div>
+          </div>
+          <div class="pkbm-year">Est. ${p.tahunBerdiri}</div>
+        </div>
+        <p class="pkbm-desc">${p.deskripsi}</p>
+        <div class="pkbm-programs">${p.program.map(pr => `<span class="tag">${pr}</span>`).join('')}</div>
+        ${p.keunggulan.length > 0 ? `<div class="pkbm-keunggulan"><strong>Keunggulan:</strong> <span>${p.keunggulan[0]}</span></div>` : ''}
+        <span class="read-more">Lihat profil lengkap →</span>
+      </a>
+    `).join('');
+  }
+
+  // Pagination
+  const totalPages = Math.ceil(filtered.length / PER_PAGE);
+  const pag = document.getElementById('pagination');
+  pag.innerHTML = totalPages > 1
+    ? Array.from({length: totalPages}, (_, i) =>
+        `<button class="page-btn ${i+1 === page ? 'active' : ''}" data-page="${i+1}">${i+1}</button>`
+      ).join('')
+    : '';
+}
+
+// Event listeners
+document.getElementById('filter-provinsi').addEventListener('change', function() {
+  populateKota(this.value);
+  applyFilter();
+});
+document.getElementById('search').addEventListener('input', applyFilter);
+document.getElementById('filter-kota').addEventListener('change', applyFilter);
+document.getElementById('pagination').addEventListener('click', function(e) {
+  const btn = e.target.closest('.page-btn');
+  if (btn) {
+    page = parseInt(btn.dataset.page);
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+
+render();
+</script>
 
 <style>
   .page-hero {
@@ -71,10 +165,36 @@ const pkbmList = (await getCollection('pkbm-profil'))
     font-size: 1.1rem;
   }
 
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+  }
+  .filter-bar input, .filter-bar select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    background: var(--clr-surface);
+    color: var(--clr-text);
+  }
+  .filter-bar input { flex: 1; min-width: 200px; }
+  #result-count { font-size: 0.85rem; color: var(--clr-text-muted); margin-left: auto; }
+
   .pkbm-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
+    min-height: 200px;
+  }
+
+  .no-result {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--clr-text-muted);
+    padding: 3rem;
   }
 
   .pkbm-card {
@@ -86,6 +206,7 @@ const pkbmList = (await getCollection('pkbm-profil'))
     flex-direction: column;
     gap: 0.75rem;
     transition: all 0.2s;
+    text-decoration: none;
   }
   .pkbm-card:hover {
     border-color: var(--clr-primary);
@@ -100,8 +221,7 @@ const pkbmList = (await getCollection('pkbm-profil'))
     gap: 0.5rem;
   }
 
-  .pkbm-card h2 { font-size: 1.1rem; }
-
+  .pkbm-card h2 { font-size: 1.1rem; margin: 0; }
   .pkbm-location { font-size: 0.82rem; color: var(--clr-text-muted); margin-top: 0.2rem; }
 
   .pkbm-year {
@@ -116,18 +236,34 @@ const pkbmList = (await getCollection('pkbm-profil'))
   }
 
   .pkbm-desc { font-size: 0.88rem; color: var(--clr-text-muted); flex: 1; }
-
   .pkbm-programs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
-  .pkbm-keunggulan {
-    font-size: 0.85rem;
-    color: var(--clr-text-muted);
-  }
+  .pkbm-keunggulan { font-size: 0.85rem; color: var(--clr-text-muted); }
   .pkbm-keunggulan strong { color: var(--clr-primary); margin-right: 0.4rem; }
 
-  .read-more {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--clr-primary);
+  .read-more { font-size: 0.85rem; font-weight: 600; color: var(--clr-primary); }
+
+  .pagination {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .page-btn {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    background: var(--clr-surface);
+    font-size: 0.88rem;
+    transition: all 0.15s;
+  }
+  .page-btn:hover { border-color: var(--clr-primary); color: var(--clr-primary); }
+  .page-btn.active { background: var(--clr-primary); color: #fff; border-color: var(--clr-primary); }
+
+  @media (max-width: 640px) {
+    .filter-bar input { min-width: 100%; }
+    #result-count { margin-left: 0; }
   }
 </style>
