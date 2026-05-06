@@ -8,7 +8,7 @@ interface Props {
 const {
   title,
   description = 'Portal informasi lengkap seputar PKBM (Pusat Kegiatan Belajar Masyarakat) — panduan pendirian, program kesetaraan, dan profil PKBM Islam di Indonesia.',
-  image = '/og-default.jpg',
+  image = '/og-image.png',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -20,7 +20,10 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="sitemap" href="/sitemap-index.xml" />
 
   <!-- SEO -->
@@ -263,12 +266,13 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
   <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-inner">
-      <a class="navbar-logo" href="/">
-        PKBM <span>Islam Indonesia</span>
-      </a>
-      <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">
-        <span></span><span></span><span></span>
-      </button>
+    <a class="navbar-logo" href="/">
+      <img src="/logo.png" alt="PKBM Islam Indonesia" width="32" height="32" />
+      PKBM <span>Islam Indonesia</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
       <ul class="navbar-links">
         <li><a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>Beranda</a></li>
         <li><a href="/program" aria-current={Astro.url.pathname.startsWith('/program') ? 'page' : undefined}>Program</a></li>
@@ -318,6 +322,45 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
       </div>
     </div>
   </footer>
+<!-- Scroll to Top Button -->
+<button id="btn-top" aria-label="Kembali ke atas" title="Kembali ke atas">↑</button>
 
+<style>
+  #btn-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--clr-primary);
+    color: #fff;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.2s;
+    z-index: 999;
+  }
+  #btn-top.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  #btn-top:hover {
+    transform: translateY(-3px);
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('btn-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 300);
+  });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 </body>
 </html>
