@@ -146,30 +146,30 @@ declare module 'astro:content' {
   slug: "mengenal-pkbm-peluang-dakwah";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "tantangan-pkbm-dan-solusinya.md": {
 	id: "tantangan-pkbm-dan-solusinya.md";
   slug: "tantangan-pkbm-dan-solusinya";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 };
 "pkbm-profil": {
-"pkbm-islam-id - Copy.md": {
-	id: "pkbm-islam-id - Copy.md";
-  slug: "pkbm-islam-id---copy";
+"kuttab-ababil-qanuni.md": {
+	id: "kuttab-ababil-qanuni.md";
+  slug: "kuttab-ababil-qanuni";
   body: string;
   collection: "pkbm-profil";
-  data: InferEntrySchema<"pkbm-profil">
+  data: any
 } & { render(): Render[".md"] };
 "pkbm-islam-id.md": {
 	id: "pkbm-islam-id.md";
   slug: "pkbm-islam-id";
   body: string;
   collection: "pkbm-profil";
-  data: InferEntrySchema<"pkbm-profil">
+  data: any
 } & { render(): Render[".md"] };
 };
 
@@ -181,5 +181,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("./../../src/content/config.js");
+	export type ContentConfig = never;
 }
