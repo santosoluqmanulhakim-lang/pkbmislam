@@ -2,7 +2,7 @@
 title: "Mengenal PKBM: Peluang Emas Dakwah melalui Pendidikan Non-Formal"
 image: "/images/blog/peluang-emas.jpg"
 description: "PKBM bukan sekadar lembaga pendidikan. Bagi komunitas Islam, ia adalah wadah dakwah yang terlegitimasi negara — menjangkau berbagai lapisan masyarakat."
-pubDate: 2025-01-15
+pubDate: 2026-01-15
 author: "Tim Redaksi"
 tags: ["PKBM", "Pendidikan Islam", "Dakwah"]
 ---

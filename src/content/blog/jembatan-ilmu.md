@@ -2,7 +2,7 @@
 title: "Jembatan Ilmu"
 image: "/images/blog/jembatan-ilmu.jpg"
 description: "Jadilah wasilah bagi para penuntut ilmu."
-pubDate: 2025-05-08
+pubDate: 2026-05-08
 author: "Tim Redaksi"
 tags: ["Sekolah", "Amal Jariyah", "Ilmu"]
 ---
