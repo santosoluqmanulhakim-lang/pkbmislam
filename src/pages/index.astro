@@ -232,7 +232,7 @@ const pkbmList = (await getCollection('pkbm-profil')).slice(0, 3);
     dots[current].classList.add('active');
   }
 
-  function startTimer() { timer = setInterval(() => goTo(current + 1), 5000); }
+  function startTimer() { timer = setInterval(() => goTo(current + 1), 2000); }
 
   dots.forEach(dot => {
     dot.addEventListener('click', () => {
