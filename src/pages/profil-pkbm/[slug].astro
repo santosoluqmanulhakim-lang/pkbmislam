@@ -14,8 +14,11 @@ const { pkbm } = Astro.props;
 const { Content } = await pkbm.render();
 ---
 
-<BaseLayout title={pkbm.data.nama} description={pkbm.data.deskripsi}>
-
+<BaseLayout
+  title={pkbm.data.nama}
+  description={pkbm.data.deskripsi}
+  image={pkbm.data.image}   // ← tambah ini jika belum ada
+>
   <div class="page-hero">
     <div class="container">
       <a href="/profil-pkbm" class="back-link">← Semua Profil PKBM</a>
