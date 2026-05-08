@@ -25,18 +25,24 @@ const posts = (await getCollection('blog'))
         <div class="blog-grid">
           {posts.map(post => (
             <a href={`/blog/${post.slug}`} class="blog-card">
-              <div class="blog-meta">
-                <span class="blog-date">
-                  {post.data.pubDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                </span>
-                <span class="blog-author">✍️ {post.data.author}</span>
+              <div class="blog-thumb">
+                {post.data.image
+                  ? <img src={post.data.image} alt={post.data.title} loading="lazy" decoding="async" />
+                  : <div class="blog-thumb-placeholder">{post.data.tags[0] ?? 'PKBM'}</div>
+                }
               </div>
-              <h2>{post.data.title}</h2>
-              <p>{post.data.description}</p>
-              <div class="blog-tags">
-                {post.data.tags.map(t => <span class="tag">{t}</span>)}
+              <div class="blog-body">
+                <div class="blog-meta">
+                  <span>{post.data.pubDate.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</span>
+                  <span>✍️ {post.data.author}</span>
+                </div>
+                <h2>{post.data.title}</h2>
+                <p>{post.data.description}</p>
+                <div class="blog-tags">
+                  {post.data.tags.map(t => <span class="tag">{t}</span>)}
+                </div>
+                <span class="read-more">Baca selengkapnya →</span>
               </div>
-              <span class="read-more">Baca selengkapnya →</span>
             </a>
           ))}
         </div>
@@ -55,6 +61,8 @@ const posts = (await getCollection('blog'))
   .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
   .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
 
+  section { padding: 2.5rem 0; }
+
   .empty-state {
     text-align: center;
     padding: 4rem;
@@ -72,10 +80,9 @@ const posts = (await getCollection('blog'))
     background: var(--clr-surface);
     border: 1px solid var(--clr-border);
     border-radius: var(--radius);
-    padding: 1.75rem;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
     transition: all 0.2s;
   }
   .blog-card:hover {
@@ -84,34 +91,50 @@ const posts = (await getCollection('blog'))
     transform: translateY(-3px);
   }
 
-  .blog-meta {
+  .blog-thumb {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .blog-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .blog-card:hover .blog-thumb img { transform: scale(1.05); }
+  .blog-thumb-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--clr-primary-light), var(--clr-primary));
+    color: rgba(255,255,255,0.7);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  .blog-body {
+    padding: 1.25rem 1.5rem 1.5rem;
     display: flex;
-    gap: 1rem;
-    font-size: 0.8rem;
-    color: var(--clr-text-muted);
-  }
-
-  .blog-card h2 {
-    font-size: 1.1rem;
-    line-height: 1.4;
-  }
-
-  .blog-card p {
-    font-size: 0.9rem;
-    color: var(--clr-text-muted);
+    flex-direction: column;
+    gap: 0.5rem;
     flex: 1;
   }
 
-  .blog-tags {
+  .blog-meta {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--clr-text-muted);
   }
+
+  .blog-body h2 { font-size: 1.05rem; line-height: 1.4; }
+  .blog-body p { font-size: 0.88rem; color: var(--clr-text-muted); flex: 1; }
+
+  .blog-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
   .read-more {
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--clr-primary);
-    margin-top: 0.25rem;
   }
 </style>

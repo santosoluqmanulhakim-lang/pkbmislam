@@ -1,5 +1,6 @@
 ---
 nama: "PKBM Islamic Centre Bin Baz Wangon"
+image: "/images/pkbm/iccb-wangon.jpg" 
 kota: "Banyumas"
 provinsi: "Jawa Tengah"
 tahunBerdiri: 2026

@@ -28,7 +28,12 @@ const { Content } = await pkbm.render();
       </div>
     </div>
   </div>
-
+{pkbm.data.image && (
+      <div class="pkbm-hero-img">
+        <img src={pkbm.data.image} alt={pkbm.data.nama} loading="lazy" decoding="async" />
+      </div>
+    )}
+    
   <section>
     <div class="container profile-layout">
 
@@ -91,6 +96,7 @@ const { Content } = await pkbm.render();
     color: #fff;
     padding: 2.5rem 0;
   }
+  
   .back-link {
     color: rgba(255,255,255,0.75);
     font-size: 0.85rem;
@@ -136,6 +142,7 @@ const { Content } = await pkbm.render();
     border-radius: var(--radius);
     padding: 1.25rem;
     margin-bottom: 1rem;
+    margin-top: 2rem;
   }
   .sidebar-card h3 {
     font-size: 0.85rem;

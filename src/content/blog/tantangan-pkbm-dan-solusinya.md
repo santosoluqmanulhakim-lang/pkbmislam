@@ -1,5 +1,6 @@
 ---
 title: "5 Tantangan Utama PKBM dan Cara Mengatasinya"
+image: "/images/blog/tantangan.jpg"
 description: "Mendirikan PKBM tidak selalu mulus. Kenali 5 tantangan yang paling sering dihadapi dan strategi praktis untuk menghadapinya."
 pubDate: 2025-02-03
 author: "Tim Redaksi"

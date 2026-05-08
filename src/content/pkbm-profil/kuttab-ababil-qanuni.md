@@ -1,5 +1,6 @@
 ---
 nama: "KUTTAB ABABIL QANUNI"
+image: "/images/pkbm/kuttab-ababil-qanuni.jpg" 
 kota: "JAKARTA BARAT"
 provinsi: "DKI Jakarta"
 tahunBerdiri: 2021

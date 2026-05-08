@@ -1,5 +1,6 @@
 ---
 nama: "PKBM Islam Indonesia"
+image: "/images/pkbm/pkbm-islam.jpg" 
 kota: "Bogor"
 provinsi: "Jawa Barat"
 tahunBerdiri: 2018

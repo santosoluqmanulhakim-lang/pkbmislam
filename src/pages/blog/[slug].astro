@@ -47,6 +47,11 @@ const related = allPosts
         <div class="post-author">✍️ {post.data.author}</div>
       </div>
     </div>
+     {post.data.image && (
+  <div class="post-hero-img">
+    <img src={post.data.image} alt={post.data.title} loading="lazy" decoding="async" />
+  </div>
+)}
 
     <div class="container">
       <div class="post-body prose">
