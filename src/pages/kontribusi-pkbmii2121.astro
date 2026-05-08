@@ -307,6 +307,51 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin-bottom: 1.75rem;
   }
   .info-box strong { font-weight: 600; }
+
+  /* ── Upload Foto ── */
+  .upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    background: var(--paper-2);
+    transition: border-color .15s, background .15s;
+    position: relative;
+  }
+  .upload-area:hover, .upload-area.dragover {
+    border-color: var(--accent);
+    background: var(--accent-lt);
+  }
+  .upload-area input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    border: none; padding: 0;
+  }
+  .upload-icon { font-size: 2rem; margin-bottom: .4rem; }
+  .upload-text { font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
+  .upload-text strong { color: var(--accent); }
+
+  .photo-previews {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+  }
+  .photo-thumb {
+    position: relative; width: 72px; height: 72px;
+  }
+  .photo-thumb img {
+    width: 72px; height: 72px; object-fit: cover; border-radius: 7px;
+    border: 1.5px solid var(--border);
+  }
+  .photo-thumb .rm-photo {
+    position: absolute; top: -6px; right: -6px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #c0392b; color: #fff; border: none;
+    font-size: 10px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .upload-count {
+    font-size: 11.5px; color: var(--ink-muted); margin-top: 6px;
+  }
 </style>
 
 <div class="page">
@@ -428,7 +473,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <label>Email (opsional)</label>
           <input type="text" id="kontak-email" placeholder="pkbm@..." />
         </div>
-      </div> 
+      </div>
+
+      <!-- 05 Foto PKBM -->
+      <div class="form-section">
+        <p class="section-title">05 — Foto PKBM <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;">(opsional, maks. 5 foto · 5 MB/foto)</span></p>
+        <div class="field">
+          <div class="upload-area" id="upload-area">
+            <input type="file" id="foto-input" accept="image/*" multiple />
+            <div class="upload-icon">📷</div>
+            <div class="upload-text">
+              <strong>Klik atau seret foto ke sini</strong><br>
+              JPG, PNG, WebP · maks. 5 foto · 5 MB per foto
+            </div>
+          </div>
+          <div class="photo-previews" id="photo-previews"></div>
+          <p class="upload-count" id="upload-count"></p>
+          <p class="hint">Foto gedung, ruang belajar, kegiatan warga belajar, dll. Akan disimpan di Google Drive admin.</p>
+        </div>
+      </div>
 
       <button class="btn-submit" id="btn-submit">
         <span class="spinner" id="spinner"></span>
@@ -454,26 +517,88 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </div>
 </div>
 
-<!-- EmailJS SDK -->
-<script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <script is:inline>
 document.querySelectorAll('#program-chips .chip').forEach(chip => {
     chip.addEventListener('click', () => chip.classList.toggle('active'));
   });
 </script>
 
+
 <script is:inline>
 document.addEventListener('DOMContentLoaded', function() {
   // ════════════════════════════════════════════════
-  // 🔧 GANTI 3 NILAI INI setelah setup EmailJS
+  // 🔧 GANTI DENGAN URL GOOGLE APPS SCRIPT ANDA
   // ════════════════════════════════════════════════
-  const EMAILJS_PUBLIC_KEY  = 'WBbnDBiYIosxy9Qj4';
-  const EMAILJS_SERVICE_ID  = 'service_3q1riza';
-  const EMAILJS_TEMPLATE_ID = 'template_g0mj3ld';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGrGQLbZx8Rcxfx_lPaD-Z3icEYHqwpaKWCO25PGyBU_kIZTYUr6oW2rSKX5iWwXaI/exec';
   // ════════════════════════════════════════════════
 
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  // ── Upload Foto ──
+  const MAX_PHOTOS = 5;
+  const MAX_SIZE_MB = 5;
+  let selectedPhotos = []; // Array of { name, base64, type }
+
+  const uploadArea  = document.getElementById('upload-area');
+  const fotoInput   = document.getElementById('foto-input');
+  const previews    = document.getElementById('photo-previews');
+  const countEl     = document.getElementById('upload-count');
+
+  function updateCount() {
+    countEl.textContent = selectedPhotos.length > 0
+      ? selectedPhotos.length + ' foto dipilih'
+      : '';
+  }
+
+  function renderPreviews() {
+    previews.innerHTML = '';
+    selectedPhotos.forEach((p, i) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'photo-thumb';
+      const img = document.createElement('img');
+      img.src = 'data:' + p.type + ';base64,' + p.base64;
+      img.alt = p.name;
+      const rm = document.createElement('button');
+      rm.className = 'rm-photo';
+      rm.textContent = '✕';
+      rm.title = 'Hapus';
+      rm.addEventListener('click', () => {
+        selectedPhotos.splice(i, 1);
+        renderPreviews();
+        updateCount();
+      });
+      thumb.appendChild(img);
+      thumb.appendChild(rm);
+      previews.appendChild(thumb);
+    });
+    updateCount();
+  }
+
+  async function addFiles(files) {
+    const remaining = MAX_PHOTOS - selectedPhotos.length;
+    const toAdd = [...files].slice(0, remaining);
+    const errors = [];
+    for (const file of toAdd) {
+      if (!file.type.startsWith('image/')) { errors.push(file.name + ': bukan gambar'); continue; }
+      if (file.size > MAX_SIZE_MB * 1024 * 1024) { errors.push(file.name + ': ukuran > ' + MAX_SIZE_MB + 'MB'); continue; }
+      const b64 = await new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload  = () => res(r.result.split(',')[1]);
+        r.onerror = () => rej();
+        r.readAsDataURL(file);
+      });
+      selectedPhotos.push({ name: file.name, base64: b64, type: file.type });
+    }
+    if (errors.length) alert('Foto dilewati:\n' + errors.join('\n'));
+    renderPreviews();
+  }
+
+  fotoInput.addEventListener('change', e => { addFiles(e.target.files); fotoInput.value = ''; });
+  uploadArea.addEventListener('dragover',  e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+  uploadArea.addEventListener('dragleave', ()  => uploadArea.classList.remove('dragover'));
+  uploadArea.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    addFiles(e.dataTransfer.files);
+  });
 
   // ── Keunggulan: tambah baris ──
   function makeRemoveBtn() {
@@ -481,7 +606,7 @@ document.addEventListener('DOMContentLoaded', function() {
     btn.className = 'btn-remove';
     btn.title = 'Hapus';
     btn.textContent = '✕';
-    btn.style.cssText = 'flex-shrink:0; width:28px; height:28px; border:1.5px solid var(--border); border-radius:6px; background:var(--paper-2); color:var(--ink-muted); cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center;';
+    btn.style.cssText = 'flex-shrink:0;width:28px;height:28px;border:1.5px solid var(--border);border-radius:6px;background:var(--paper-2);color:var(--ink-muted);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;';
     btn.addEventListener('click', () => {
       const list = document.getElementById('keung-list');
       if (list.children.length > 1) btn.closest('.keung-row').remove();
@@ -498,11 +623,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const list = document.getElementById('keung-list');
     const row = document.createElement('div');
     row.className = 'keung-row';
-    row.style.cssText = 'display:flex; gap:6px; align-items:center;';
+    row.style.cssText = 'display:flex;gap:6px;align-items:center;';
     const inp = document.createElement('input');
     inp.type = 'text';
     inp.placeholder = 'Keunggulan PKBM...';
-    inp.style.cssText = 'flex:1; font-family:inherit; font-size:14px; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; background:var(--paper); color:var(--ink); box-sizing:border-box; outline:none;';
+    inp.style.cssText = 'flex:1;font-family:inherit;font-size:14px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--paper);color:var(--ink);box-sizing:border-box;outline:none;';
     row.appendChild(inp);
     row.appendChild(makeRemoveBtn());
     list.appendChild(row);
@@ -526,38 +651,63 @@ document.addEventListener('DOMContentLoaded', function() {
     return [...document.querySelectorAll('#keung-list input')].map(i => i.value.trim()).filter(Boolean);
   }
 
-  // BENAR:
-function buildMd({ nama, tahun, kota, provinsi, deskripsi, narasi, website, maps, kontakTelp, kontakEmail, pengisi, programs, keunggulan }) {
-  const esc      = s => s.replace(/"/g, '\\"');
-  const tahunVal = tahun || new Date().getFullYear();
+  // Hasilkan placeholder path galeri berdasarkan slug PKBM dan jumlah foto
+  function buildGaleriSlugs(pkbmSlug, count) {
+    const paths = [];
+    for (let i = 1; i <= count; i++) {
+      paths.push('/images/pkbm/' + pkbmSlug + '-' + i + '.jpg');
+    }
+    return paths;
+  }
 
-  const progInline = '[' + programs.map(p => '"' + esc(p) + '"').join(', ') + ']';
+  function buildMd({ nama, tahun, kota, provinsi, deskripsi, narasi, website, maps,
+                     kontakTelp, kontakEmail, pengisi, programs, keunggulan, pkbmSlug, fotoCount }) {
+    const esc      = s => s.replace(/"/g, '\\"');
+    const tahunVal = tahun || new Date().getFullYear();
 
-  const keungYaml = keunggulan.length
-    ? 'keunggulan:\n' + keunggulan.map(k => '  - "' + esc(k) + '"').join('\n')
-    : 'keunggulan: []';
+    // program sebagai YAML list
+    const progYaml = programs.length
+      ? 'program:\n' + programs.map(p => '  - "' + esc(p) + '"').join('\n')
+      : 'program: []';
 
-  const websiteVal = website ? '"' + esc(website) + '"' : '""';
-  const pengisiLine = pengisi ? '<!-- Diisi oleh: ' + pengisi + ' -->\n\n' : '';
+    const keungYaml = keunggulan.length
+      ? 'keunggulan:\n' + keunggulan.map(k => '  - "' + esc(k) + '"').join('\n')
+      : 'keunggulan: []';
 
-  const fm = [
-    '---',
-    'nama: "' + esc(nama) + '"',
-    'kota: "' + esc(kota) + '"',
-    'provinsi: "' + esc(provinsi) + '"',
-    'tahunBerdiri: ' + tahunVal,
-    'program: ' + progInline,
-    'website: ' + websiteVal,
-    'maps: "' + esc(maps||'') + '"',
-    'kontak: "' + esc(kontakTelp||'') + '"',
-    'email: "' + esc(kontakEmail||'') + '"',
-    'deskripsi: "' + esc(deskripsi) + '"',
-    keungYaml,
-    '---',
-  ].join('\n');
+    // image: foto pertama sebagai cover
+    const imageVal = fotoCount > 0
+      ? '"/images/pkbm/' + pkbmSlug + '.jpg"'
+      : '"/images/pkbm/placeholder.jpg"';
 
-  return fm + '\n\n' + pengisiLine + narasi;
-}
+    // galeri: placeholder paths (admin yang rename & upload ke repo)
+    const galeriSlugs = buildGaleriSlugs(pkbmSlug, fotoCount);
+    const galeriYaml = galeriSlugs.length
+      ? 'galeri:\n' + galeriSlugs.map(g => '  - "' + g + '"').join('\n')
+      : 'galeri: []';
+
+    const websiteVal  = website ? '"' + esc(website) + '"' : '""';
+    const pengisiLine = pengisi ? '<!-- Diisi oleh: ' + pengisi + ' -->\n\n' : '';
+
+    const fm = [
+      '---',
+      'nama: "' + esc(nama) + '"',
+      'image: ' + imageVal,
+      'kota: "' + esc(kota) + '"',
+      'provinsi: "' + esc(provinsi) + '"',
+      'tahunBerdiri: ' + tahunVal,
+      progYaml,
+      'website: ' + websiteVal,
+      'maps: "' + esc(maps||'') + '"',
+      'kontak: "' + esc(kontakTelp||'') + '"',
+      'email: "' + esc(kontakEmail||'') + '"',
+      'deskripsi: "' + esc(deskripsi) + '"',
+      keungYaml,
+      galeriYaml,
+      '---',
+    ].join('\n');
+
+    return fm + '\n\n' + pengisiLine + narasi;
+  }
 
   function setLoading(on) {
     document.getElementById('btn-submit').disabled = on;
@@ -581,67 +731,88 @@ function buildMd({ nama, tahun, kota, provinsi, deskripsi, narasi, website, maps
 
   // ── Submit ──
   document.getElementById('btn-submit').addEventListener('click', async () => {
-    const nama       = document.getElementById('nama').value.trim();
-    const tahun      = document.getElementById('tahun').value.trim();
-    const kota       = document.getElementById('kota').value.trim();
-    const provinsi   = document.getElementById('provinsi').value.trim();
-    const deskripsi  = document.getElementById('deskripsi').value.trim();
-    const narasi     = document.getElementById('narasi').value.trim();
-    const website    = document.getElementById('website').value.trim();
-    const pengisi    = document.getElementById('pengisi').value.trim();
-    const programs   = getPrograms();
-    const keunggulan = getKeunggulan();
-    const maps       = document.getElementById('maps').value.trim();
-    const kontakTelp = document.getElementById('kontak-telp').value.trim();
-    const kontakEmail= document.getElementById('kontak-email').value.trim();
+    const nama        = document.getElementById('nama').value.trim();
+    const tahun       = document.getElementById('tahun').value.trim();
+    const kota        = document.getElementById('kota').value.trim();
+    const provinsi    = document.getElementById('provinsi').value.trim();
+    const deskripsi   = document.getElementById('deskripsi').value.trim();
+    const narasi      = document.getElementById('narasi').value.trim();
+    const website     = document.getElementById('website').value.trim();
+    const pengisi     = document.getElementById('pengisi').value.trim();
+    const programs    = getPrograms();
+    const keunggulan  = getKeunggulan();
+    const maps        = document.getElementById('maps').value.trim();
+    const kontakTelp  = document.getElementById('kontak-telp').value.trim();
+    const kontakEmail = document.getElementById('kontak-email').value.trim();
+    const pkbmSlug    = slug(nama) || 'pkbm-baru';
 
-    const md = buildMd({ nama, tahun, kota, provinsi, deskripsi, narasi, website, maps, kontakTelp, kontakEmail, pengisi, programs, keunggulan });
+    const md = buildMd({ nama, tahun, kota, provinsi, deskripsi, narasi, website, maps,
+                         kontakTelp, kontakEmail, pengisi, programs, keunggulan,
+                         pkbmSlug, fotoCount: selectedPhotos.length });
 
-// Validasi
-const missing = [];
-if (!nama)                 missing.push('Nama PKBM');
-if (!kota)                 missing.push('Kota / Kabupaten');
-if (!provinsi)             missing.push('Provinsi');
-if (!deskripsi)            missing.push('Deskripsi singkat');
-if (!narasi)               missing.push('Narasi / profil lengkap');
-if (programs.length === 0) missing.push('minimal satu program');
-if (missing.length > 0) {
-  showStatus('error', '<strong>Mohon lengkapi field berikut:</strong><br>• ' + missing.join('<br>• '));
-  return;
-}
+    // Validasi
+    const missing = [];
+    if (!nama)                 missing.push('Nama PKBM');
+    if (!kota)                 missing.push('Kota / Kabupaten');
+    if (!provinsi)             missing.push('Provinsi');
+    if (!deskripsi)            missing.push('Deskripsi singkat');
+    if (!narasi)               missing.push('Narasi / profil lengkap');
+    if (programs.length === 0) missing.push('minimal satu program');
+    if (missing.length > 0) {
+      showStatus('error', '<strong>Mohon lengkapi field berikut:</strong><br>• ' + missing.join('<br>• '));
+      return;
+    }
 
-const fileSlug = slug(nama) || 'pkbm-baru';
-window._mdContent = md;
-window._mdSlug    = fileSlug;
+    window._mdContent = md;
+    window._mdSlug    = pkbmSlug;
 
     document.getElementById('status-banner').style.display = 'none';
     setLoading(true);
 
+    // ── Kirim ke Apps Script via no-cors (workaround CORS Google Apps Script) ──
+    // Apps Script deployed sebagai Web App tidak mengirim CORS header untuk POST JSON,
+    // sehingga kita pakai form-encoded agar browser tidak melakukan preflight.
+    // Data JSON dikirim sebagai satu field "payload" di dalam form body.
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        nama_pkbm  : nama,
-        kota       : kota,
-        provinsi   : provinsi,
-        pengisi    : pengisi || '(tidak diisi)',
-        filename   : fileSlug + '.md',
-        md_content : md,
+      const payload = JSON.stringify({
+        nama_pkbm   : nama,
+        kota        : kota,
+        provinsi    : provinsi,
+        pengisi     : pengisi || '(tidak diisi)',
+        kontak_telp : kontakTelp,
+        kontak_email: kontakEmail,
+        filename    : pkbmSlug + '.md',
+        md_content  : md,
+        photos      : selectedPhotos,  // [{ name, base64, type }]
       });
 
+      // Kirim sebagai application/x-www-form-urlencoded → tidak trigger preflight CORS
+      const formBody = 'payload=' + encodeURIComponent(payload);
+
+      await fetch(APPS_SCRIPT_URL, {
+        method : 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body   : formBody,
+        mode   : 'no-cors',  // Apps Script tidak kirim CORS header → gunakan no-cors
+      });
+
+      // no-cors selalu returns opaque response, tidak bisa cek status → anggap sukses
       showStatus('success',
-        `<strong>✓ Terima kasih${pengisi ? ', ' + pengisi : ''}!</strong><br>
-        Profil <em>${nama}</em> sudah dikirim ke admin dan akan segera ditinjau.
-        Kamu juga bisa unduh file .md-nya di bawah sebagai arsip.`
+        '<strong>✓ Terima kasih' + (pengisi ? ', ' + pengisi : '') + '!</strong><br>' +
+        'Profil <em>' + nama + '</em> sudah dikirim ke admin dan akan segera ditinjau.' +
+        (selectedPhotos.length > 0 ? '<br>📷 ' + selectedPhotos.length + ' foto berhasil dikirim.' : '') +
+        '<br>Kamu juga bisa unduh file .md-nya di bawah sebagai arsip.'
       );
-      showPreview(md, fileSlug);
+      showPreview(md, pkbmSlug);
 
     } catch (err) {
-      console.error('EmailJS error:', err);
+      console.error('Apps Script error:', err);
       showStatus('error',
-        `<strong>Gagal mengirim.</strong> Silakan coba lagi.<br>
-        <small style="opacity:.65">Error: ${err?.text || err?.message || JSON.stringify(err)}</small><br><br>
-        Alternatif: unduh file .md di bawah dan kirim manual ke admin.`
+        '<strong>Gagal mengirim.</strong> Silakan coba lagi.<br>' +
+        '<small style="opacity:.65">Error: ' + (err && err.message ? err.message : String(err)) + '</small><br><br>' +
+        'Alternatif: unduh file .md di bawah dan kirim manual ke admin.'
       );
-      showPreview(md, fileSlug);
+      showPreview(md, pkbmSlug);
     } finally {
       setLoading(false);
     }
@@ -653,7 +824,7 @@ window._mdSlug    = fileSlug;
     navigator.clipboard.writeText(window._mdContent).then(() => {
       const toast = document.getElementById('copy-toast');
       toast.textContent = '✓ Tersalin! Simpan sebagai: ' + (window._mdSlug || 'pkbm') + '.md';
-      setTimeout(() => toast.textContent = '', 3000);
+      setTimeout(() => { toast.textContent = ''; }, 3000);
     });
   });
 
