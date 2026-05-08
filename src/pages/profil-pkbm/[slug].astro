@@ -14,10 +14,8 @@ const { pkbm } = Astro.props;
 const { Content } = await pkbm.render();
 ---
 
-<BaseLayout
-  title={pkbm.data.nama}
-  description={pkbm.data.deskripsi}
->
+<BaseLayout title={pkbm.data.nama} description={pkbm.data.deskripsi}>
+
   <div class="page-hero">
     <div class="container">
       <a href="/profil-pkbm" class="back-link">← Semua Profil PKBM</a>
@@ -28,19 +26,18 @@ const { Content } = await pkbm.render();
       </div>
     </div>
   </div>
-{pkbm.data.image && (
-      <div class="pkbm-hero-img">
-        <img src={pkbm.data.image} alt={pkbm.data.nama} loading="lazy" decoding="async" />
-      </div>
-    )}
-    
+
+  {pkbm.data.image && (
+    <div class="pkbm-hero-img">
+      <img src={pkbm.data.image} alt={pkbm.data.nama} loading="lazy" decoding="async" />
+    </div>
+  )}
+
   <section>
     <div class="container profile-layout">
-
       <div class="profile-main prose">
         <Content />
       </div>
-
       <aside class="profile-sidebar">
         <div class="sidebar-card">
           <h3>Program</h3>
@@ -48,7 +45,6 @@ const { Content } = await pkbm.render();
             {pkbm.data.program.map(p => <li><span class="tag">{p}</span></li>)}
           </ul>
         </div>
-
         {pkbm.data.keunggulan.length > 0 && (
           <div class="sidebar-card">
             <h3>Keunggulan</h3>
@@ -57,16 +53,6 @@ const { Content } = await pkbm.render();
             </ul>
           </div>
         )}
-
-        {pkbm.data.website && (
-          <div class="sidebar-card">
-            <h3>Website</h3>
-            <a href={pkbm.data.website} target="_blank" rel="noopener" class="website-link">
-              🔗 {pkbm.data.website}
-            </a>
-          </div>
-        )}
-
         {pkbm.data.kontak && (
           <div class="sidebar-card">
             <h3>Kontak</h3>
@@ -74,7 +60,6 @@ const { Content } = await pkbm.render();
             {pkbm.data.email && <p>✉️ {pkbm.data.email}</p>}
           </div>
         )}
-
         {pkbm.data.maps && (
           <div class="sidebar-card">
             <h3>Lokasi</h3>
@@ -83,11 +68,18 @@ const { Content } = await pkbm.render();
             </a>
           </div>
         )}
-
+        {pkbm.data.website && (
+          <div class="sidebar-card">
+            <h3>Website / Medsos</h3>
+            <a href={pkbm.data.website} target="_blank" rel="noopener" class="website-link">
+              🔗 {pkbm.data.website}
+            </a>
+          </div>
+        )}
       </aside>
-
     </div>
   </section>
+
 </BaseLayout>
 
 <style>
@@ -96,7 +88,6 @@ const { Content } = await pkbm.render();
     color: #fff;
     padding: 2.5rem 0;
   }
-  
   .back-link {
     color: rgba(255,255,255,0.75);
     font-size: 0.85rem;
@@ -108,16 +99,28 @@ const { Content } = await pkbm.render();
   .page-hero h1 { color: #fff; font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 0.5rem; }
   .meta-row { display: flex; gap: 1.5rem; color: rgba(255,255,255,0.75); font-size: 0.88rem; }
 
+  .pkbm-hero-img {
+    width: 100%;
+    max-height: 420px;
+    overflow: hidden;
+  }
+  .pkbm-hero-img img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
   .profile-layout {
     display: grid;
     grid-template-columns: 1fr 280px;
     gap: 2.5rem;
     align-items: start;
   }
-
   @media (max-width: 768px) {
     .profile-layout { grid-template-columns: 1fr; }
     .profile-sidebar { order: -1; }
+    .pkbm-hero-img img { height: 220px; }
   }
 
   /* Prose */
@@ -141,11 +144,11 @@ const { Content } = await pkbm.render();
     border: 1px solid var(--clr-border);
     border-radius: var(--radius);
     padding: 1.25rem;
-    margin-bottom: 1rem;
     margin-top: 2rem;
+    margin-bottom: 1rem;
   }
   .sidebar-card h3 {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--clr-primary);
@@ -153,15 +156,7 @@ const { Content } = await pkbm.render();
     font-family: var(--font-sans);
   }
   .sidebar-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-
-  .keunggulan-list li { font-size: 0.88rem; color: var(--clr-text-muted); overflow-wrap: break-word; word-break: break-word; }
-
-  .sidebar-card p { overflow-wrap: break-word; word-break: break-word; }
-
-  .website-link {
-    color: var(--clr-primary);
-    font-size: 0.88rem;
-    word-break: break-all;
-    text-decoration: underline;
-  }
+  .sidebar-card p { font-size: 0.88rem; color: var(--clr-text-muted); margin-bottom: 0.3rem; }
+  .keunggulan-list li { font-size: 0.88rem; color: var(--clr-text-muted); }
+  .website-link { color: var(--clr-primary); font-size: 0.88rem; word-break: break-all; text-decoration: underline; }
 </style>
