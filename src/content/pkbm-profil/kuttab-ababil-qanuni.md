@@ -15,6 +15,10 @@ email: "kuttabababilqanunijkt@gmail.com"
 deskripsi: "PKBM Bermanhaj Salaf di Jakarta Barat yang berfokus kepada Tahfidzhul Qur'an"
 keunggulan:
   - "Tahfidzhul Qur'an"
+galeri:
+  - "/images/pkbm/kuttab-ababil-qanuni-1.jpeg"
+  - "/images/pkbm/kuttab-ababil-qanuni-2.jpeg"
+  - "/images/pkbm/kuttab-ababil-qanuni-3.jpeg"
 ---
 
 <!-- Diisi oleh: Afdhallul Ziqri, Lc. / Kepala PKBM -->

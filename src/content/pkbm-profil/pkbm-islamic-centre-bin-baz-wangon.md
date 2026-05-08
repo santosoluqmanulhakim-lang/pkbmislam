@@ -21,6 +21,10 @@ email: ""
 deskripsi: "Pondok Pesantren Islamic Centre Bin Baz (ICBB) Wangon adalah lembaga pendidikan Islam modern yang berlokasi di Desa Jambu, Kecamatan Wangon, Kabupaten Banyumas, Jawa Tengah. Pesantren ini menyelenggarakan pendidikan terpadu (diniyah dan umum) untuk santri ikhwan (putra) maupun akhwat (putri), dengan fokus pada karakter, tahfidz, dan ilmu syar'i."
 keunggulan:
   - "Program Tahfidz dan Life Skill"
+galeri:
+  - "/images/pkbm/iccb-wangon-1.jpg"
+  - "/images/pkbm/iccb-wangon-2.jpg"
+  - "/images/pkbm/iccb-wangon-3.jpg"
 ---
 
 <!-- Diisi oleh: Fahmi Jamal -->

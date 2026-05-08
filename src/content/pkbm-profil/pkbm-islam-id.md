@@ -14,6 +14,10 @@ keunggulan:
 maps: "https://maps.app.go.gl/Bogor"
 kontak: "0821..."
 email: "insyaAllah@segera.nyusul"
+galeri:
+  - "/images/pkbm/pkbm-islam-1.jpg"
+  - "/images/pkbm/pkbm-islam-2.jpg"
+  - "/images/pkbm/pkbm-islam-3.jpg"
 ---
 
 ## Tentang PKBM Islam Indonesia
