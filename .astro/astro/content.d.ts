@@ -155,6 +155,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"pertemuan-perdana.md": {
+	id: "pertemuan-perdana.md";
+  slug: "pertemuan-perdana";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "tantangan-pkbm-dan-solusinya.md": {
 	id: "tantangan-pkbm-dan-solusinya.md";
   slug: "tantangan-pkbm-dan-solusinya";
