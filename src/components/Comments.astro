@@ -1,0 +1,227 @@
+---
+// src/components/Comments.astro
+const { postSlug } = Astro.props;
+---
+
+<section style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
+  <h3 style="font-size: 18px; margin-bottom: 1.5rem; font-family: Georgia, serif;">Komentar</h3>
+
+  <div id="comments-wrapper" data-slug={postSlug}>
+
+    <!-- Login Section -->
+    <div id="login-section" style="margin-bottom: 1.5rem;">
+      <p style="font-size: 14px; color: #6b7280; margin-bottom: 8px; font-family: sans-serif;">
+        Masuk untuk berkomentar:
+      </p>
+      <button id="login-btn" style="
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 18px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: sans-serif;
+        color: #111827;
+        transition: background 0.15s;
+      ">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+          width="18" height="18" alt="Google" />
+        Masuk dengan Google
+      </button>
+    </div>
+
+    <!-- Form Komentar (tampil setelah login) -->
+    <div id="comment-form" style="display:none; margin-bottom: 2rem;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+        <img id="user-photo" src="" width="28" height="28"
+          style="border-radius:50%; border:1.5px solid #e5e7eb;"
+          referrerpolicy="no-referrer" alt="foto" />
+        <span id="user-name" style="font-size:14px; font-family:sans-serif; color:#374151;"></span>
+        <button id="logout-btn" style="
+          font-size:11px;
+          padding: 3px 10px;
+          border: 1px solid #e5e7eb;
+          border-radius: 99px;
+          background: none;
+          cursor: pointer;
+          color: #9ca3af;
+          font-family: sans-serif;
+          margin-left: 4px;
+        ">Keluar</button>
+      </div>
+      <textarea id="comment-input" rows="3" placeholder="Tulis komentar Anda..." style="
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        font-family: sans-serif;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        resize: vertical;
+        outline: none;
+        color: #111827;
+        line-height: 1.6;
+        transition: border-color 0.15s;
+      "></textarea>
+      <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+        <button id="submit-btn" style="
+          padding: 8px 20px;
+          background: #1d6a4a;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 14px;
+          font-family: sans-serif;
+          cursor: pointer;
+          transition: background 0.15s;
+        ">Kirim Komentar</button>
+        <span id="submit-msg" style="font-size:13px; color:#6b7280; font-family:sans-serif;"></span>
+      </div>
+    </div>
+
+    <!-- Daftar Komentar -->
+    <div id="comments-list">
+      <p style="font-size:14px; color:#9ca3af; font-family:sans-serif;">Memuat komentar...</p>
+    </div>
+
+  </div>
+</section>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+  import {
+    getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+  import {
+    getFirestore, collection, addDoc, query, where, orderBy, getDocs, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAJfV1PjIGOAAMsaINMAlU30Oy-ji6hJlo",
+    authDomain: "pkbmislam-comment.firebaseapp.com",
+    projectId: "pkbmislam-comment",
+    storageBucket: "pkbmislam-comment.firebasestorage.app",
+    messagingSenderId: "692599447287",
+    appId: "1:692599447287:web:3ba568cf53eb952fbdfdf2",
+    measurementId: "G-G3G87VT7K8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const slug = document.getElementById("comments-wrapper").dataset.slug;
+
+  // ── Load Komentar ──────────────────────────────────────────────────────────
+  async function loadComments() {
+    const list = document.getElementById("comments-list");
+    try {
+      const q = query(
+        collection(db, "comments"),
+        where("slug", "==", slug),
+        orderBy("createdAt", "desc")
+      );
+      console.log("slug yang dicari:", slug); // ← tambah ini
+      const snap = await getDocs(q);
+      if (snap.empty) {
+        list.innerHTML = `<p style="font-size:14px;color:#9ca3af;font-family:sans-serif;">
+          Belum ada komentar. Jadilah yang pertama!</p>`;
+        return;
+      }
+      console.log("jumlah dokumen:", snap.size); // ← tambah ini
+      list.innerHTML = snap.docs.map(doc => {
+        const d = doc.data();
+        const waktu = d.createdAt?.toDate
+          ? d.createdAt.toDate().toLocaleDateString("id-ID", {
+              day: "numeric", month: "long", year: "numeric"
+            })
+          : "Baru saja";
+        return `
+          <div style="border-top:1px solid #f3f4f6; padding:14px 0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <img src="${d.photoURL || ''}" width="28" height="28"
+                style="border-radius:50%;border:1.5px solid #e5e7eb;"
+                referrerpolicy="no-referrer"
+                onerror="this.style.display='none'" alt="${d.displayName}" />
+              <span style="font-weight:600;font-size:14px;font-family:sans-serif;color:#111827;">
+                ${escHtml(d.displayName || 'Anonim')}
+              </span>
+              <span style="font-size:12px;color:#9ca3af;font-family:sans-serif;">${waktu}</span>
+            </div>
+            <p style="margin:0;font-size:14px;line-height:1.7;color:#374151;font-family:sans-serif;">
+              ${escHtml(d.text || '')}
+            </p>
+          </div>`;
+      }).join("");
+    } catch (e) {
+      list.innerHTML = `<p style="font-size:13px;color:#ef4444;font-family:sans-serif;">
+        Belum ada komentar. Jadilah yang pertama!</p>`;
+    }
+  }
+
+  // ── Auth State ─────────────────────────────────────────────────────────────
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      document.getElementById("login-section").style.display = "none";
+      document.getElementById("comment-form").style.display = "block";
+      document.getElementById("user-name").textContent = user.displayName;
+      document.getElementById("user-photo").src = user.photoURL || "";
+    } else {
+      document.getElementById("login-section").style.display = "block";
+      document.getElementById("comment-form").style.display = "none";
+    }
+  });
+
+  document.getElementById("login-btn").addEventListener("click", () => {
+    signInWithPopup(auth, new GoogleAuthProvider())
+      .catch(e => alert("Gagal login: " + e.message));
+  });
+
+  document.getElementById("logout-btn").addEventListener("click", () => signOut(auth));
+
+  // ── Submit Komentar ────────────────────────────────────────────────────────
+  document.getElementById("submit-btn").addEventListener("click", async () => {
+    const user = auth.currentUser;
+    const text = document.getElementById("comment-input").value.trim();
+    const msg = document.getElementById("submit-msg");
+    const btn = document.getElementById("submit-btn");
+
+    if (!user) return;
+    if (!text) { msg.textContent = "Komentar tidak boleh kosong."; return; }
+    if (text.length > 1000) { msg.textContent = "Maksimal 1000 karakter."; return; }
+
+    btn.disabled = true;
+    btn.textContent = "Mengirim...";
+    msg.textContent = "";
+
+    try {
+      await addDoc(collection(db, "comments"), {
+        slug,
+        uid: user.uid,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        text,
+        createdAt: serverTimestamp(),
+      });
+      document.getElementById("comment-input").value = "";
+      msg.textContent = "Komentar berhasil dikirim.";
+      msg.style.color = "#1d6a4a";
+      loadComments();
+    } catch (e) {
+      msg.textContent = "Gagal mengirim: " + e.message;
+      msg.style.color = "#ef4444";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Kirim Komentar";
+    }
+  });
+
+  function escHtml(str) {
+    return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+              .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+
+  loadComments();
+</script>

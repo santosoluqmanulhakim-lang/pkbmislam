@@ -13,6 +13,13 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const siteTitle = `${title} | PKBM Islam Indonesia`;
+
+import Comments from '../components/Comments.astro';
+const slug = Astro.params.slug;
+const showComments = !!slug && (
+  Astro.url.pathname.startsWith('/blog/') ||
+  Astro.url.pathname.startsWith('/profil-pkbm/')
+);
 ---
 
 <!DOCTYPE html>
@@ -87,7 +94,6 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
     }
 
     a { color: inherit; text-decoration: none; }
-
     img { max-width: 100%; height: auto; display: block; }
 
     .container {
@@ -108,18 +114,9 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
       transition: all 0.2s ease;
       border: none;
     }
-
-    .btn-primary {
-      background: var(--clr-primary);
-      color: #fff;
-    }
+    .btn-primary { background: var(--clr-primary); color: #fff; }
     .btn-primary:hover { background: var(--clr-primary-dark); transform: translateY(-1px); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--clr-primary);
-      border: 2px solid var(--clr-primary);
-    }
+    .btn-outline { background: transparent; color: var(--clr-primary); border: 2px solid var(--clr-primary); }
     .btn-outline:hover { background: var(--clr-primary-light); }
 
     .tag {
@@ -133,16 +130,8 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
     }
 
     section { padding: 0rem 0; }
-
-    .section-title {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      margin-bottom: 0.5rem;
-    }
-    .section-subtitle {
-      color: var(--clr-text-muted);
-      margin-bottom: 2.5rem;
-      font-size: 1.05rem;
-    }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 0.5rem; }
+    .section-subtitle { color: var(--clr-text-muted); margin-bottom: 2.5rem; font-size: 1.05rem; }
 
     /* Navbar */
     .navbar {
@@ -190,23 +179,11 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
       color: var(--clr-primary);
       background: var(--clr-primary-light);
     }
-    .nav-cta {
-      background: var(--clr-primary) !important;
-      color: #fff !important;
-      padding: 0.45rem 1rem !important;
-    }
+    .nav-cta { background: var(--clr-primary) !important; color: #fff !important; padding: 0.45rem 1rem !important; }
     .nav-cta:hover { background: var(--clr-primary-dark) !important; }
 
-    /* Hamburger mobile */
     .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; }
-    .nav-toggle span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--clr-text);
-      margin: 5px 0;
-      transition: 0.3s;
-    }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--clr-text); margin: 5px 0; transition: 0.3s; }
 
     @media (max-width: 768px) {
       .nav-toggle { display: block; }
@@ -266,13 +243,13 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
   <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-inner">
-    <a class="navbar-logo" href="/">
-      <img src="/logo.png" alt="PKBM Islam Indonesia" width="32" height="32" />
-      PKBM <span>Islam Indonesia</span>
-    </a>
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">
-      <span></span><span></span><span></span>
-    </button>
+      <a class="navbar-logo" href="/">
+        <img src="/logo.png" alt="PKBM Islam Indonesia" width="32" height="32" />
+        PKBM <span>Islam Indonesia</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
       <ul class="navbar-links">
         <li><a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>Beranda</a></li>
         <li><a href="/program" aria-current={Astro.url.pathname.startsWith('/program') ? 'page' : undefined}>Program</a></li>
@@ -289,6 +266,13 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
   <main>
     <slot />
   </main>
+
+  <!-- Komentar: hanya muncul di halaman blog post -->
+  {showComments && (
+    <div class="container" style="padding-bottom: 4rem;">
+      <Comments postSlug={slug} />
+    </div>
+  )}
 
   <!-- Footer -->
   <footer>
@@ -322,45 +306,42 @@ const siteTitle = `${title} | PKBM Islam Indonesia`;
       </div>
     </div>
   </footer>
-<!-- Scroll to Top Button -->
-<button id="btn-top" aria-label="Kembali ke atas" title="Kembali ke atas">↑</button>
 
-<style>
-  #btn-top {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--clr-primary);
-    color: #fff;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s, transform 0.2s;
-    z-index: 999;
-  }
-  #btn-top.visible {
-    opacity: 1;
-    visibility: visible;
-  }
-  #btn-top:hover {
-    transform: translateY(-3px);
-  }
-</style>
+  <!-- Scroll to Top Button -->
+  <button id="btn-top" aria-label="Kembali ke atas" title="Kembali ke atas">↑</button>
 
-<script>
-  const btn = document.getElementById('btn-top');
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 300);
-  });
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-</script>
+  <style>
+    #btn-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--clr-primary);
+      color: #fff;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s, transform 0.2s;
+      z-index: 999;
+    }
+    #btn-top.visible { opacity: 1; visibility: visible; }
+    #btn-top:hover { transform: translateY(-3px); }
+  </style>
+
+  <script>
+    const btn = document.getElementById('btn-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 300);
+    });
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
 </body>
 </html>

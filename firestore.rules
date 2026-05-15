@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Daftar UID admin — samakan dengan ADMIN_UIDS di admin-komentar.astro
+    function isAdmin() {
+      return request.auth != null && request.auth.uid in [
+        "U5QggYmSzmh4vO1wNdwhY3jxJrV2"
+        // tambahkan UID lain di sini jika ada
+      ];
+    }
+
+    function isOwner() {
+      return request.auth != null && request.auth.uid == resource.data.uid;
+    }
+
+    match /comments/{commentId} {
+      // Siapa saja boleh baca
+      allow read: if true;
+
+      // Hanya pengguna login yang bisa buat komentar,
+      // uid harus cocok dengan yang login, teks max 1000 karakter
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid
+                    && request.resource.data.text is string
+                    && request.resource.data.text.size() > 0
+                    && request.resource.data.text.size() <= 1000
+                    && request.resource.data.slug is string;
+
+      // Tidak ada yang bisa edit komentar
+      allow update: if false;
+
+      // Hapus: hanya pemilik komentar atau admin
+      allow delete: if isOwner() || isAdmin();
+    }
+  }
+}
