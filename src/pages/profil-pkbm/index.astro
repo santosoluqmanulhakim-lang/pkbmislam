@@ -38,7 +38,10 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
             </select>
             <select id="filter-status">
               <option value="">Semua Status</option>
-              <option value="PKBM Mandiri">PKBM Mandiri</option>
+              <option value="PKBM Mandiri - Akreditasi A">PKBM Mandiri - Akreditasi A</option>
+              <option value="PKBM Mandiri - Akreditasi B">PKBM Mandiri - Akreditasi B</option>
+              <option value="PKBM Mandiri - Akreditasi C">PKBM Mandiri - Akreditasi C</option>
+              <option value="PKBM Mandiri - Belum Akreditasi">PKBM Mandiri - Belum Akreditasi</option>
               <option value="Menginduk">Menginduk</option>
               <option value="Homeschooling">Homeschooling</option>
             </select>
@@ -66,7 +69,7 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
                   </div>
                   <div class="pkbm-location">📍 {pkbm.data.kota}, {pkbm.data.provinsi}</div>
                   <div class="pkbm-status-row">
-                    <span class={`status-badge status-${pkbm.data.status === 'PKBM Mandiri' ? 'mandiri' : pkbm.data.status === 'Menginduk' ? 'menginduk' : 'homeschooling'}`}>
+                    <span class={`status-badge status-${pkbm.data.status === 'PKBM Mandiri - Akreditasi A' ? 'akreditasi-a' : pkbm.data.status === 'PKBM Mandiri - Akreditasi B' ? 'akreditasi-b' : pkbm.data.status === 'PKBM Mandiri - Akreditasi C' ? 'akreditasi-c' : pkbm.data.status === 'PKBM Mandiri - Belum Akreditasi' ? 'belum-akreditasi' : pkbm.data.status === 'Menginduk' ? 'menginduk' : 'homeschooling'}`}>
                       {pkbm.data.status}
                     </span>
                   </div>

@@ -14,7 +14,10 @@ const { pkbm } = Astro.props;
 const { Content } = await pkbm.render();
 
 const statusClass: Record<string, string> = {
-  'PKBM Mandiri': 'status-mandiri',
+  'PKBM Mandiri - Akreditasi A': 'status-akreditasi-a',
+  'PKBM Mandiri - Akreditasi B': 'status-akreditasi-b',
+  'PKBM Mandiri - Akreditasi C': 'status-akreditasi-c',
+  'PKBM Mandiri - Belum Akreditasi': 'status-belum-akreditasi',
   'Menginduk': 'status-menginduk',
   'Homeschooling': 'status-homeschooling',
 };
@@ -197,7 +200,10 @@ const statusClass: Record<string, string> = {
     font-size: 0.82rem;
     font-weight: 600;
   }
-  .status-mandiri { background: var(--clr-primary-light); color: var(--clr-primary); }
+  .status-akreditasi-a { background: #d4edda; color: #155724; }
+  .status-akreditasi-b { background: #fff3cd; color: #856404; }
+  .status-akreditasi-c { background: #f8d7da; color: #721c24; }
+  .status-belum-akreditasi { background: #e2e3e5; color: #383d41; }
   .status-menginduk { background: var(--clr-accent-light); color: #7a5c00; }
   .status-homeschooling { background: #e8f0fe; color: #1a56db; }
 

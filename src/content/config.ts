@@ -20,7 +20,7 @@ const pkbmProfil = defineCollection({
     provinsi: z.string(),
     tahunBerdiri: z.number(),
     program: z.array(z.string()),
-    status: z.enum(['Homeschooling', 'Menginduk', 'PKBM Mandiri']).default('PKBM Mandiri'),
+    status: z.enum(['Homeschooling', 'Menginduk', 'PKBM Mandiri - Akreditasi A', 'PKBM Mandiri - Akreditasi B', 'PKBM Mandiri - Akreditasi C', 'PKBM Mandiri - Belum Akreditasi']).default('PKBM Mandiri'),
     website: z.string().optional(),
     deskripsi: z.string(),
     keunggulan: z.array(z.string()).optional().default([]),
