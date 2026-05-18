@@ -12,7 +12,6 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
   title="Profil PKBM Islam"
   description="Profil PKBM Islam yang telah berhasil beroperasi di berbagai daerah Indonesia."
 >
-
   <div class="page-hero">
     <div class="container">
       <h1>Profil PKBM Islam</h1>
@@ -22,7 +21,6 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
 
   <section>
     <div class="container">
-
       {pkbmList.length === 0 ? (
         <div class="empty-state">
           <p>📋 Profil PKBM segera ditambahkan.</p>
@@ -38,6 +36,12 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
             <select id="filter-kota">
               <option value="">Semua Kota</option>
             </select>
+            <select id="filter-status">
+              <option value="">Semua Status</option>
+              <option value="PKBM Mandiri">PKBM Mandiri</option>
+              <option value="Menginduk">Menginduk</option>
+              <option value="Homeschooling">Homeschooling</option>
+            </select>
             <span id="result-count"></span>
           </div>
 
@@ -47,6 +51,7 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
                 data-nama={pkbm.data.nama.toLowerCase()}
                 data-kota={pkbm.data.kota.toLowerCase()}
                 data-provinsi={pkbm.data.provinsi}
+                data-status={pkbm.data.status}
               >
                 <div class="pkbm-thumb">
                   {pkbm.data.image
@@ -60,6 +65,11 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
                     <span class="pkbm-year">Est. {pkbm.data.tahunBerdiri}</span>
                   </div>
                   <div class="pkbm-location">📍 {pkbm.data.kota}, {pkbm.data.provinsi}</div>
+                  <div class="pkbm-status-row">
+                    <span class={`status-badge status-${pkbm.data.status === 'PKBM Mandiri' ? 'mandiri' : pkbm.data.status === 'Menginduk' ? 'menginduk' : 'homeschooling'}`}>
+                      {pkbm.data.status}
+                    </span>
+                  </div>
                   <div class="pkbm-programs">
                     {pkbm.data.program.map(p => <span class="tag">{p}</span>)}
                   </div>
@@ -72,25 +82,22 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
           <div id="no-result" class="no-result" style="display:none">
             Tidak ada PKBM yang sesuai filter.
           </div>
-          <div id="result-info" class="result-info"></div>
         </>
       )}
-
     </div>
   </section>
-
 </BaseLayout>
 
 <script is:inline>
 (function() {
-  const cards    = document.querySelectorAll('.pkbm-card');
-  const search   = document.getElementById('search');
-  const selProv  = document.getElementById('filter-provinsi');
-  const selKota  = document.getElementById('filter-kota');
-  const count    = document.getElementById('result-count');
-  const noResult = document.getElementById('no-result');
+  const cards     = document.querySelectorAll('.pkbm-card');
+  const search    = document.getElementById('search');
+  const selProv   = document.getElementById('filter-provinsi');
+  const selKota   = document.getElementById('filter-kota');
+  const selStatus = document.getElementById('filter-status');
+  const count     = document.getElementById('result-count');
+  const noResult  = document.getElementById('no-result');
 
-  // Populate kota dropdown berdasar provinsi
   function populateKota(prov) {
     const kotas = [...new Set(
       [...cards]
@@ -103,16 +110,18 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
   populateKota('');
 
   function filter() {
-    const q    = search.value.toLowerCase();
-    const prov = selProv.value;
-    const kota = selKota.value.toLowerCase();
-    let visible = 0;
+    const q      = search.value.toLowerCase();
+    const prov   = selProv.value;
+    const kota   = selKota.value.toLowerCase();
+    const status = selStatus.value;
+    let visible  = 0;
 
     cards.forEach(card => {
       const match =
-        (!q    || card.dataset.nama.includes(q) || card.dataset.kota.includes(q)) &&
-        (!prov || card.dataset.provinsi === prov) &&
-        (!kota || card.dataset.kota === kota);
+        (!q      || card.dataset.nama.includes(q) || card.dataset.kota.includes(q)) &&
+        (!prov   || card.dataset.provinsi === prov) &&
+        (!kota   || card.dataset.kota === kota) &&
+        (!status || card.dataset.status === status);
 
       card.style.display = match ? '' : 'none';
       if (match) visible++;
@@ -125,8 +134,9 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
   selProv.addEventListener('change', function() { populateKota(this.value); filter(); });
   search.addEventListener('input', filter);
   selKota.addEventListener('change', filter);
+  selStatus.addEventListener('change', filter);
 
-  filter(); // init
+  filter();
 })();
 </script>
 
@@ -141,10 +151,7 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
 
   section { padding: 2.5rem 0; }
 
-  .empty-state {
-    text-align: center; padding: 4rem;
-    color: var(--clr-text-muted); font-size: 1.1rem;
-  }
+  .empty-state { text-align: center; padding: 4rem; color: var(--clr-text-muted); font-size: 1.1rem; }
 
   .filter-bar {
     display: flex; flex-wrap: wrap;
@@ -158,7 +165,7 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
     background: var(--clr-surface);
     color: var(--clr-text);
   }
-  .filter-bar input { flex: 1; min-width: 200px; }
+  .filter-bar input { flex: 1; min-width: 180px; }
   #result-count { font-size: 0.85rem; color: var(--clr-text-muted); margin-left: auto; }
 
   .pkbm-grid {
@@ -167,35 +174,21 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
     gap: 1.5rem;
   }
 
-  .no-result {
-    text-align: center; color: var(--clr-text-muted);
-    padding: 3rem; font-size: 0.95rem;
-  }
+  .no-result { text-align: center; color: var(--clr-text-muted); padding: 3rem; font-size: 0.95rem; }
 
   .pkbm-card {
     background: var(--clr-surface);
     border: 1px solid var(--clr-border);
     border-radius: var(--radius);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     transition: all 0.2s;
     text-decoration: none;
   }
-  .pkbm-card:hover {
-    border-color: var(--clr-primary);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
-  }
+  .pkbm-card:hover { border-color: var(--clr-primary); box-shadow: var(--shadow-md); transform: translateY(-3px); }
 
-  .pkbm-thumb {
-    width: 100%; height: 180px;
-    overflow: hidden; flex-shrink: 0;
-  }
-  .pkbm-thumb img {
-    width: 100%; height: 100%;
-    object-fit: cover; transition: transform 0.3s;
-  }
+  .pkbm-thumb { width: 100%; height: 180px; overflow: hidden; flex-shrink: 0; }
+  .pkbm-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
   .pkbm-card:hover .pkbm-thumb img { transform: scale(1.05); }
   .pkbm-thumb-placeholder {
     width: 100%; height: 100%;
@@ -206,23 +199,18 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
     letter-spacing: 0.12em; text-transform: uppercase;
   }
 
-  .pkbm-body {
-    padding: 1.25rem 1.5rem 1.5rem;
-    display: flex; flex-direction: column;
-    gap: 0.5rem; flex: 1;
-  }
-  .pkbm-header {
-    display: flex; justify-content: space-between;
-    align-items: flex-start; gap: 0.5rem;
-  }
+  .pkbm-body { padding: 1.25rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+  .pkbm-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
   .pkbm-body h2 { font-size: 1rem; margin: 0; line-height: 1.35; }
-  .pkbm-year {
-    background: var(--clr-accent-light); color: #7a5c00;
-    padding: 0.2rem 0.6rem; border-radius: 20px;
-    font-size: 0.75rem; font-weight: 600;
-    white-space: nowrap; flex-shrink: 0;
-  }
+  .pkbm-year { background: var(--clr-accent-light); color: #7a5c00; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
   .pkbm-location { font-size: 0.8rem; color: var(--clr-text-muted); }
+
+  .pkbm-status-row { display: flex; }
+  .status-badge { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+  .status-mandiri { background: var(--clr-primary-light); color: var(--clr-primary); }
+  .status-menginduk { background: var(--clr-accent-light); color: #7a5c00; }
+  .status-homeschooling { background: #e8f0fe; color: #1a56db; }
+
   .pkbm-programs { display: flex; flex-wrap: wrap; gap: 0.35rem; flex: 1; align-content: flex-start; }
   .read-more { font-size: 0.82rem; font-weight: 600; color: var(--clr-primary); margin-top: auto; }
 

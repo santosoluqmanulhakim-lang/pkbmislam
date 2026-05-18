@@ -143,6 +143,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin-top: 5px;
     line-height: 1.5;
   }
+  .status-select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--clr-border, #e2e2dc);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: var(--clr-surface, #fff);
+    color: var(--clr-text, #1c1c1c);
+    cursor: pointer;
+  }
 
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 440px) { .row2 { grid-template-columns: 1fr; } }
@@ -378,6 +388,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="field">
             <label for="nama">Nama PKBM <span class="req">*</span></label>
             <input id="nama" type="text" placeholder="PKBM Luqmanulhakim" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label>Status Legalitas <span class="required">*</span></label>
+            <select id="status" class="status-select">
+              <option value="PKBM Mandiri">PKBM Mandiri (izin operasional sendiri)</option>
+              <option value="Menginduk">Menginduk ke PKBM lain</option>
+              <option value="Homeschooling">Homeschooling</option>
+            </select>
           </div>
           <div class="field">
             <label for="tahun">Tahun berdiri</label>
@@ -660,7 +678,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return paths;
   }
 
-  function buildMd({ nama, tahun, kota, provinsi, deskripsi, narasi, website, maps,
+  function buildMd({ nama, tahun, kota, provinsi, status, deskripsi, narasi, website, maps,
                      kontakTelp, kontakEmail, pengisi, programs, keunggulan, pkbmSlug, fotoCount }) {
     const esc      = s => s.replace(/"/g, '\\"');
     const tahunVal = tahun || new Date().getFullYear();
@@ -694,6 +712,7 @@ document.addEventListener('DOMContentLoaded', function() {
       'image: ' + imageVal,
       'kota: "' + esc(kota) + '"',
       'provinsi: "' + esc(provinsi) + '"',
+      'status: "' + status + '"',
       'tahunBerdiri: ' + tahunVal,
       progYaml,
       'website: ' + websiteVal,
@@ -735,6 +754,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tahun       = document.getElementById('tahun').value.trim();
     const kota        = document.getElementById('kota').value.trim();
     const provinsi    = document.getElementById('provinsi').value.trim();
+    const status      = document.getElementById('status').value;
     const deskripsi   = document.getElementById('deskripsi').value.trim();
     const narasi      = document.getElementById('narasi').value.trim();
     const website     = document.getElementById('website').value.trim();
@@ -746,7 +766,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const kontakEmail = document.getElementById('kontak-email').value.trim();
     const pkbmSlug    = slug(nama) || 'pkbm-baru';
 
-    const md = buildMd({ nama, tahun, kota, provinsi, deskripsi, narasi, website, maps,
+    const md = buildMd({ nama, tahun, kota, provinsi, status, deskripsi, narasi, website, maps,
                          kontakTelp, kontakEmail, pengisi, programs, keunggulan,
                          pkbmSlug, fotoCount: selectedPhotos.length });
 

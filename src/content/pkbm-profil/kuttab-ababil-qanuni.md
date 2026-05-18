@@ -13,6 +13,7 @@ maps: "https://maps.app.goo.gl/Ak7g5yepxuLqxwRy9"
 kontak: "081211932845"
 email: "kuttabababilqanunijkt@gmail.com"
 deskripsi: "PKBM Bermanhaj Salaf di Jakarta Barat yang berfokus kepada Tahfidzhul Qur'an"
+status: "PKBM Mandiri"
 keunggulan:
   - "Tahfidzhul Qur'an"
 galeri:
