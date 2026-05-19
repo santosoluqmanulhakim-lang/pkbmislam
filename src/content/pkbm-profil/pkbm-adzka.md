@@ -1,6 +1,6 @@
 ---
 nama: "PKBM ADZKA"
-image: "/images/pkbm/pkbm-adzka-1.jpeg"
+image: "/images/pkbm/pkbm-adzka-1.jpg"
 kota: "Tangerang Selatan"
 provinsi: "Banten"
 status: "PKBM Mandiri - Belum Akreditasi"
@@ -22,9 +22,9 @@ keunggulan:
   - "Praktik Sains"
   - "Penulisan Karya Ilmiyah"
 galeri:
-  - "/images/pkbm/pkbm-adzka-1.jpeg"
-  - "/images/pkbm/pkbm-adzka-2.jpeg"
-  - "/images/pkbm/pkbm-adzka-3.jpeg"
+  - "/images/pkbm/pkbm-adzka-1.jpg"
+  - "/images/pkbm/pkbm-adzka-2.jpg"
+  - "/images/pkbm/pkbm-adzka-3.jpg"
 ---
 
 <!-- Diisi oleh: Anshory Hadi -->
