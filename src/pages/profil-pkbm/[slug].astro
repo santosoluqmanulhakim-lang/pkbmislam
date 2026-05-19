@@ -21,6 +21,8 @@ const statusClass: Record<string, string> = {
   'Menginduk': 'status-menginduk',
   'Homeschooling': 'status-homeschooling',
 };
+
+const status = pkbm.data.status ?? null;
 ---
 
 <BaseLayout
@@ -45,9 +47,14 @@ const statusClass: Record<string, string> = {
     </div>
   )}
 
-  <section>
+  <section class="profile-section">
     <div class="container profile-layout">
       <div class="profile-main">
+        {pkbm.data.deskripsi && (
+          <div class="deskripsi-box">
+            <p>{pkbm.data.deskripsi}</p>
+          </div>
+        )}
         <div class="prose">
           <Content />
         </div>
@@ -82,9 +89,13 @@ const statusClass: Record<string, string> = {
       <aside class="profile-sidebar">
         <div class="sidebar-card">
           <h3>Status Legalitas</h3>
-          <span class={`status-badge ${statusClass[pkbm.data.status]}`}>
-            {pkbm.data.status}
-          </span>
+          {status ? (
+            <span class={`status-badge ${statusClass[status] ?? ''}`}>
+              {status}
+            </span>
+          ) : (
+            <span class="status-badge" style="background:var(--clr-border);color:var(--clr-text-muted)">—</span>
+          )}
         </div>
 
         <div class="sidebar-card">
@@ -165,6 +176,8 @@ const statusClass: Record<string, string> = {
   .pkbm-hero-img { width: 100%; overflow: hidden; }
   .pkbm-hero-img img { width: 100%; height: 420px; object-fit: cover; display: block; }
 
+  .profile-section { padding: 2.5rem 0 3rem; }
+
   .profile-layout {
     display: grid;
     grid-template-columns: 1fr 280px;
@@ -175,6 +188,21 @@ const statusClass: Record<string, string> = {
     .profile-layout { grid-template-columns: 1fr; }
     .profile-sidebar { order: -1; }
     .pkbm-hero-img img { height: 220px; }
+  }
+
+  /* Deskripsi highlight box */
+  .deskripsi-box {
+    background: var(--clr-primary-light);
+    border-left: 4px solid var(--clr-primary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+  .deskripsi-box p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--clr-text);
   }
 
   /* Prose */

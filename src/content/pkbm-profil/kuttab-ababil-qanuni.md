@@ -1,8 +1,9 @@
 ---
 nama: "KUTTAB ABABIL QANUNI"
-image: "/images/pkbm/kuttab-ababil-qanuni.jpg" 
-kota: "JAKARTA BARAT"
+image: "/images/pkbm/kuttab-ababil-qanuni.jpg"
+kota: "Jakarta Barat"
 provinsi: "DKI Jakarta"
+status: "PKBM Mandiri - Akreditasi B"
 tahunBerdiri: 2021
 program:
   - "Paket A"
@@ -12,8 +13,7 @@ website: "https://www.instagram.com/kuttabababilqanuni/"
 maps: "https://maps.app.goo.gl/Ak7g5yepxuLqxwRy9"
 kontak: "081211932845"
 email: "kuttabababilqanunijkt@gmail.com"
-deskripsi: "PKBM Bermanhaj Salaf di Jakarta Barat yang berfokus kepada Tahfidzhul Qur'an"
-status: "PKBM Mandiri - Akreditasi B"
+deskripsi: "PKBM Bermanhaj Salaf di Jakarta Barat yang berfokus kepada Tahfidzhul Qur'an."
 keunggulan:
   - "Tahfidzhul Qur'an"
 galeri:

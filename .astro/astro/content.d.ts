@@ -146,28 +146,28 @@ declare module 'astro:content' {
   slug: "jembatan-ilmu";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "mengenal-pkbm-peluang-dakwah.md": {
 	id: "mengenal-pkbm-peluang-dakwah.md";
   slug: "mengenal-pkbm-peluang-dakwah";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "pertemuan-perdana.md": {
 	id: "pertemuan-perdana.md";
   slug: "pertemuan-perdana";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "tantangan-pkbm-dan-solusinya.md": {
 	id: "tantangan-pkbm-dan-solusinya.md";
   slug: "tantangan-pkbm-dan-solusinya";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 };
 "pkbm-profil": {
@@ -176,21 +176,35 @@ declare module 'astro:content' {
   slug: "kuttab-ababil-qanuni";
   body: string;
   collection: "pkbm-profil";
-  data: InferEntrySchema<"pkbm-profil">
+  data: any
+} & { render(): Render[".md"] };
+"pkbm-adzka.md": {
+	id: "pkbm-adzka.md";
+  slug: "pkbm-adzka";
+  body: string;
+  collection: "pkbm-profil";
+  data: any
 } & { render(): Render[".md"] };
 "pkbm-islam-id.md": {
 	id: "pkbm-islam-id.md";
   slug: "pkbm-islam-id";
   body: string;
   collection: "pkbm-profil";
-  data: InferEntrySchema<"pkbm-profil">
+  data: any
 } & { render(): Render[".md"] };
 "pkbm-islamic-centre-bin-baz-wangon.md": {
 	id: "pkbm-islamic-centre-bin-baz-wangon.md";
   slug: "pkbm-islamic-centre-bin-baz-wangon";
   body: string;
   collection: "pkbm-profil";
-  data: InferEntrySchema<"pkbm-profil">
+  data: any
+} & { render(): Render[".md"] };
+"pkbm-sekolah-developer-indonesia-kodein.md": {
+	id: "pkbm-sekolah-developer-indonesia-kodein.md";
+  slug: "pkbm-sekolah-developer-indonesia-kodein";
+  body: string;
+  collection: "pkbm-profil";
+  data: any
 } & { render(): Render[".md"] };
 };
 
@@ -202,5 +216,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("./../../src/content/config.js");
+	export type ContentConfig = never;
 }

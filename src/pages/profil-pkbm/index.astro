@@ -69,9 +69,11 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
                   </div>
                   <div class="pkbm-location">📍 {pkbm.data.kota}, {pkbm.data.provinsi}</div>
                   <div class="pkbm-status-row">
-                    <span class={`status-badge status-${pkbm.data.status === 'PKBM Mandiri - Akreditasi A' ? 'akreditasi-a' : pkbm.data.status === 'PKBM Mandiri - Akreditasi B' ? 'akreditasi-b' : pkbm.data.status === 'PKBM Mandiri - Akreditasi C' ? 'akreditasi-c' : pkbm.data.status === 'PKBM Mandiri - Belum Akreditasi' ? 'belum-akreditasi' : pkbm.data.status === 'Menginduk' ? 'menginduk' : 'homeschooling'}`}>
-                      {pkbm.data.status}
-                    </span>
+                    {pkbm.data.status && (
+                      <span class={`status-badge status-${pkbm.data.status === 'PKBM Mandiri - Akreditasi A' ? 'akreditasi-a' : pkbm.data.status === 'PKBM Mandiri - Akreditasi B' ? 'akreditasi-b' : pkbm.data.status === 'PKBM Mandiri - Akreditasi C' ? 'akreditasi-c' : pkbm.data.status === 'PKBM Mandiri - Belum Akreditasi' ? 'belum-akreditasi' : pkbm.data.status === 'Menginduk' ? 'menginduk' : 'homeschooling'}`}>
+                        {pkbm.data.status}
+                      </span>
+                    )}
                   </div>
                   <div class="pkbm-programs">
                     {pkbm.data.program.map(p => <span class="tag">{p}</span>)}
@@ -210,6 +212,10 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
 
   .pkbm-status-row { display: flex; }
   .status-badge { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+  .status-akreditasi-a { background: #d4edda; color: #155724; }
+  .status-akreditasi-b { background: #fff3cd; color: #856404; }
+  .status-akreditasi-c { background: #f8d7da; color: #721c24; }
+  .status-belum-akreditasi { background: #e2e3e5; color: #383d41; }
   .status-mandiri { background: var(--clr-primary-light); color: var(--clr-primary); }
   .status-menginduk { background: var(--clr-accent-light); color: #7a5c00; }
   .status-homeschooling { background: #e8f0fe; color: #1a56db; }
