@@ -3,7 +3,7 @@ nama: "PKBM Islamic Centre Bin Baz Wangon"
 image: "/images/pkbm/iccb-wangon-1.jpg"
 kota: "Banyumas"
 provinsi: "Jawa Tengah"
-status: "PKBM Mandiri - Akreditasi B"
+status: "PKBM Mandiri - Belum Akreditasi"
 tahunBerdiri: 2026
 program:
   - "Paket A"

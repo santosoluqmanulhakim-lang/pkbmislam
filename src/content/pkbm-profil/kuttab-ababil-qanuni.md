@@ -3,7 +3,7 @@ nama: "KUTTAB ABABIL QANUNI"
 image: "/images/pkbm/kuttab-ababil-qanuni.jpg"
 kota: "Jakarta Barat"
 provinsi: "DKI Jakarta"
-status: "PKBM Mandiri - Akreditasi B"
+status: "PKBM Mandiri - Belum Akreditasi"
 tahunBerdiri: 2021
 program:
   - "Paket A"
@@ -17,9 +17,9 @@ deskripsi: "PKBM Bermanhaj Salaf di Jakarta Barat yang berfokus kepada Tahfidzhu
 keunggulan:
   - "Tahfidzhul Qur'an"
 galeri:
-  - "/images/pkbm/kuttab-ababil-qanuni-1.jpeg"
-  - "/images/pkbm/kuttab-ababil-qanuni-2.jpeg"
-  - "/images/pkbm/kuttab-ababil-qanuni-3.jpeg"
+  - "/images/pkbm/kuttab-ababil-qanuni-1.jpg"
+  - "/images/pkbm/kuttab-ababil-qanuni-2.jpg"
+  - "/images/pkbm/kuttab-ababil-qanuni-3.jpg"
 ---
 
 <!-- Diisi oleh: Afdhallul Ziqri, Lc. / Kepala PKBM -->
