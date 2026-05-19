@@ -10,7 +10,7 @@ program:
   - "Paket C"
 website: "IG: putrialadzievie"
 maps: "https://share.google/5mVNM5NzfHF92cp0h"
-kontak: "081297551293"
+kontak: "087819406675"
 email: "aladziviea@gmail.com"
 deskripsi: "Pondok Pesantren Tahfizh Putri Aladzievie setara SMP–SMA (Boarding/Full Day) binaan Ustadz Subhan Bawazier hafizhahullah di Rancabungur, Kabupaten Bogor."
 keunggulan:
@@ -20,6 +20,11 @@ keunggulan:
   - "Mutun Thalibil 'Ilmi"
 galeri:
   - "/images/pkbm/pondok-tahfizh-putri-aladzievie-1.jpg"
+  - "/images/pkbm/pondok-tahfizh-putri-aladzievie-2.jpg"
+  - "/images/pkbm/pondok-tahfizh-putri-aladzievie-3.jpg"
+  - "/images/pkbm/pondok-tahfizh-putri-aladzievie-4.jpg"
+  - "/images/pkbm/pondok-tahfizh-putri-aladzievie-5.jpg"
+
 ---
 
 <!-- Diisi oleh: Abu Salsabila, S.Si -->

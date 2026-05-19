@@ -269,6 +269,13 @@ declare module 'astro:content' {
   collection: "pkbm-profil";
   data: any
 } & { render(): Render[".md"] };
+"pkbm-himmatul-ummah.md": {
+	id: "pkbm-himmatul-ummah.md";
+  slug: "pkbm-himmatul-ummah";
+  body: string;
+  collection: "pkbm-profil";
+  data: any
+} & { render(): Render[".md"] };
 "pkbm-ibad-ar-rahman-surabaya.md": {
 	id: "pkbm-ibad-ar-rahman-surabaya.md";
   slug: "pkbm-ibad-ar-rahman-surabaya";
@@ -304,9 +311,23 @@ declare module 'astro:content' {
   collection: "pkbm-profil";
   data: any
 } & { render(): Render[".md"] };
+"pkbm-plus-babussalam.md": {
+	id: "pkbm-plus-babussalam.md";
+  slug: "pkbm-plus-babussalam";
+  body: string;
+  collection: "pkbm-profil";
+  data: any
+} & { render(): Render[".md"] };
 "pkbm-riyadhul-jannah-bojongsari.md": {
 	id: "pkbm-riyadhul-jannah-bojongsari.md";
   slug: "pkbm-riyadhul-jannah-bojongsari";
+  body: string;
+  collection: "pkbm-profil";
+  data: any
+} & { render(): Render[".md"] };
+"pkbm-sabilul-hidayah.md": {
+	id: "pkbm-sabilul-hidayah.md";
+  slug: "pkbm-sabilul-hidayah";
   body: string;
   collection: "pkbm-profil";
   data: any
@@ -325,6 +346,13 @@ declare module 'astro:content' {
   collection: "pkbm-profil";
   data: any
 } & { render(): Render[".md"] };
+"pkbm-sekolah-islam-abu-bakar.md": {
+	id: "pkbm-sekolah-islam-abu-bakar.md";
+  slug: "pkbm-sekolah-islam-abu-bakar";
+  body: string;
+  collection: "pkbm-profil";
+  data: any
+} & { render(): Render[".md"] };
 "pkbm-sekolah-tahfidz-ibnu-mas-ud.md": {
 	id: "pkbm-sekolah-tahfidz-ibnu-mas-ud.md";
   slug: "pkbm-sekolah-tahfidz-ibnu-mas-ud";
@@ -335,6 +363,13 @@ declare module 'astro:content' {
 "pkbm-stq-al-muzaniy.md": {
 	id: "pkbm-stq-al-muzaniy.md";
   slug: "pkbm-stq-al-muzaniy";
+  body: string;
+  collection: "pkbm-profil";
+  data: any
+} & { render(): Render[".md"] };
+"pkbm-tahfizh-at-tamam.md": {
+	id: "pkbm-tahfizh-at-tamam.md";
+  slug: "pkbm-tahfizh-at-tamam";
   body: string;
   collection: "pkbm-profil";
   data: any
