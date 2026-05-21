@@ -1,0 +1,225 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Koreksi Data Profil PKBM"
+  description="Form koreksi data profil PKBM Islam Indonesia — laporkan kesalahan data agar segera diperbaiki."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>Koreksi Data Profil PKBM</h1>
+      <p>Temukan data yang tidak akurat? Laporkan di sini dan admin insyaAllah akan segera memperbaikinya.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container form-wrap">
+
+      <div id="status-msg" class="status-msg" style="display:none"></div>
+
+      <div class="field">
+        <label>Nama PKBM <span class="required">*</span></label>
+        <input type="text" id="nama_pkbm" placeholder="Nama PKBM yang datanya perlu dikoreksi" />
+      </div>
+
+      <div class="field">
+        <label>Field yang perlu dikoreksi <span class="required">*</span></label>
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox" value="Nama PKBM" /> Nama PKBM</label>
+          <label class="check-item"><input type="checkbox" value="Kota / Kabupaten" /> Kota / Kabupaten</label>
+          <label class="check-item"><input type="checkbox" value="Provinsi" /> Provinsi</label>
+          <label class="check-item"><input type="checkbox" value="Tahun Berdiri" /> Tahun Berdiri</label>
+          <label class="check-item"><input type="checkbox" value="Status Legalitas" /> Status Legalitas</label>
+          <label class="check-item"><input type="checkbox" value="Akreditasi" /> Akreditasi</label>
+          <label class="check-item"><input type="checkbox" value="Program" /> Program</label>
+          <label class="check-item"><input type="checkbox" value="Keunggulan" /> Keunggulan</label>
+          <label class="check-item"><input type="checkbox" value="Website / Medsos" /> Website / Medsos</label>
+          <label class="check-item"><input type="checkbox" value="Kontak / WA" /> Kontak / WA</label>
+          <label class="check-item"><input type="checkbox" value="Email" /> Email</label>
+          <label class="check-item"><input type="checkbox" value="Lokasi / Maps" /> Lokasi / Maps</label>
+          <label class="check-item"><input type="checkbox" value="Foto / Gambar" /> Foto / Gambar</label>
+          <label class="check-item"><input type="checkbox" value="Narasi / Deskripsi" /> Narasi / Deskripsi</label>
+          <label class="check-item"><input type="checkbox" value="Lainnya" /> Lainnya</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Data yang Benar <span class="required">*</span></label>
+        <textarea id="data_baru" placeholder="Tuliskan data yang benar untuk field-field di atas..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Keterangan Tambahan</label>
+        <textarea id="keterangan" placeholder="Jelaskan lebih detail jika perlu..."></textarea>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="field">
+        <label>Nama Pengisi <span class="required">*</span></label>
+        <input type="text" id="pengisi" placeholder="Nama Anda atau pengelola PKBM" />
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>WA / Telepon</label>
+          <input type="text" id="kontak" placeholder="08xxxxxxxxxx" />
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="email@..." />
+        </div>
+      </div>
+
+      <button id="btn-submit" class="btn btn-primary">Kirim Koreksi</button>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" is:inline></script>
+<script is:inline>
+document.addEventListener('DOMContentLoaded', function() {
+  const SERVICE_ID  = 'service_3q1riza';
+  const TEMPLATE_ID = 'template_g2tdt1h';
+  const PUBLIC_KEY  = 'WBbnDBiYIosxy9Qj4';
+
+  emailjs.init({ publicKey: PUBLIC_KEY });
+
+  function showStatus(type, msg) {
+    const el = document.getElementById('status-msg');
+    el.style.display = 'block';
+    el.className = 'status-msg status-' + type;
+    el.innerHTML = msg;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  document.getElementById('btn-submit').addEventListener('click', async function() {
+    const nama_pkbm   = document.getElementById('nama_pkbm').value.trim();
+    const field_salah = [...document.querySelectorAll('.check-group input:checked')]
+      .map(el => el.value).join(', ');
+    const data_baru   = document.getElementById('data_baru').value.trim();
+    const keterangan  = document.getElementById('keterangan').value.trim();
+    const pengisi     = document.getElementById('pengisi').value.trim();
+    const kontak      = document.getElementById('kontak').value.trim();
+    const email       = document.getElementById('email').value.trim();
+
+    // Validasi
+    const missing = [];
+    if (!nama_pkbm)   missing.push('Nama PKBM');
+    if (!field_salah) missing.push('Field yang salah');
+    if (!data_baru)   missing.push('Data yang benar');
+    if (!pengisi)     missing.push('Nama pengisi');
+
+    if (missing.length > 0) {
+      showStatus('error', '<strong>Mohon lengkapi:</strong> ' + missing.join(', '));
+      return;
+    }
+
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'Mengirim...';
+
+    try {
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+        nama_pkbm,
+        field_salah,
+        data_baru,
+        keterangan: keterangan || '(tidak ada)',
+        pengisi,
+        kontak    : kontak || '(tidak diisi)',
+        email     : email  || '(tidak diisi)',
+      });
+
+      showStatus('success', '✅ Koreksi berhasil dikirim! Admin akan segera menindaklanjuti.');
+      document.querySelectorAll('input, textarea, select').forEach(el => el.value = '');
+
+    } catch (err) {
+      showStatus('error', '❌ Gagal mengirim. Silakan coba lagi atau hubungi admin langsung.');
+      console.error(err);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Kirim Koreksi';
+    }
+  });
+});
+</script>
+
+<style>
+  .page-hero {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+  }
+  .page-hero h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  .page-hero p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+
+  section { padding: 2.5rem 0; }
+
+  .form-wrap { max-width: 680px; }
+
+  .field { margin-bottom: 1.25rem; }
+  .field label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--clr-text-muted);
+    margin-bottom: 0.4rem;
+  }
+  .required { color: #e53e3e; }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    font-size: 0.92rem;
+    font-family: var(--font-sans);
+    background: var(--clr-surface);
+    color: var(--clr-text);
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none;
+    border-color: var(--clr-primary);
+  }
+  .field textarea { min-height: 90px; resize: vertical; }
+
+  .divider { border: none; border-top: 1px solid var(--clr-border); margin: 1.5rem 0; }
+
+  .btn-primary { margin-top: 0.5rem; }
+  .check-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--clr-border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .check-item:has(input:checked) {
+    background: var(--clr-primary-light);
+    border-color: var(--clr-primary);
+    color: var(--clr-primary);
+    font-weight: 600;
+  }
+  .check-item input { display: none; }
+
+  .status-msg {
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+  }
+  .status-success { background: var(--clr-primary-light); color: var(--clr-primary); border: 1px solid rgba(26,107,58,0.2); }
+  .status-error   { background: #fff5f5; color: #c53030; border: 1px solid #fed7d7; }
+</style>

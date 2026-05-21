@@ -146,28 +146,28 @@ declare module 'astro:content' {
   slug: "jembatan-ilmu";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "mengenal-pkbm-peluang-dakwah.md": {
 	id: "mengenal-pkbm-peluang-dakwah.md";
   slug: "mengenal-pkbm-peluang-dakwah";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "pertemuan-perdana.md": {
 	id: "pertemuan-perdana.md";
   slug: "pertemuan-perdana";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "tantangan-pkbm-dan-solusinya.md": {
 	id: "tantangan-pkbm-dan-solusinya.md";
   slug: "tantangan-pkbm-dan-solusinya";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
 "pkbm-profil": {
@@ -176,287 +176,287 @@ declare module 'astro:content' {
   slug: "anshorussunnah";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "kuttab-ababil-qanuni.md": {
 	id: "kuttab-ababil-qanuni.md";
   slug: "kuttab-ababil-qanuni";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pesantren-adab-dan-tahfizh-al-badar-cisarua.md": {
 	id: "pesantren-adab-dan-tahfizh-al-badar-cisarua.md";
   slug: "pesantren-adab-dan-tahfizh-al-badar-cisarua";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-abu-bakar-ash-shiddiq.md": {
 	id: "pkbm-abu-bakar-ash-shiddiq.md";
   slug: "pkbm-abu-bakar-ash-shiddiq";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-adzka.md": {
 	id: "pkbm-adzka.md";
   slug: "pkbm-adzka";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-al-amanah.md": {
 	id: "pkbm-al-amanah.md";
   slug: "pkbm-al-amanah";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-al-fajar-al-islamiy.md": {
 	id: "pkbm-al-fajar-al-islamiy.md";
   slug: "pkbm-al-fajar-al-islamiy";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-al-istiqomah.md": {
 	id: "pkbm-al-istiqomah.md";
   slug: "pkbm-al-istiqomah";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-al-kautsar.md": {
 	id: "pkbm-al-kautsar.md";
   slug: "pkbm-al-kautsar";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-al-mansuora.md": {
 	id: "pkbm-al-mansuora.md";
   slug: "pkbm-al-mansuora";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-an-najiyah-tuban.md": {
 	id: "pkbm-an-najiyah-tuban.md";
   slug: "pkbm-an-najiyah-tuban";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-ar-raudhoh.md": {
 	id: "pkbm-ar-raudhoh.md";
   slug: "pkbm-ar-raudhoh";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-asy-syamil-lima-puluh-kota.md": {
 	id: "pkbm-asy-syamil-lima-puluh-kota.md";
   slug: "pkbm-asy-syamil-lima-puluh-kota";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-attamam-2.md": {
 	id: "pkbm-attamam-2.md";
   slug: "pkbm-attamam-2";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-barokah-ilmu-plus.md": {
 	id: "pkbm-barokah-ilmu-plus.md";
   slug: "pkbm-barokah-ilmu-plus";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-daarus-sunnah-rangkasbitung.md": {
 	id: "pkbm-daarus-sunnah-rangkasbitung.md";
   slug: "pkbm-daarus-sunnah-rangkasbitung";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-el-hijrah.md": {
 	id: "pkbm-el-hijrah.md";
   slug: "pkbm-el-hijrah";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-fitrah-rabbani.md": {
 	id: "pkbm-fitrah-rabbani.md";
   slug: "pkbm-fitrah-rabbani";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-himmatul-ummah.md": {
 	id: "pkbm-himmatul-ummah.md";
   slug: "pkbm-himmatul-ummah";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-ibad-ar-rahman-surabaya.md": {
 	id: "pkbm-ibad-ar-rahman-surabaya.md";
   slug: "pkbm-ibad-ar-rahman-surabaya";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-ibadurrahman-balangan.md": {
 	id: "pkbm-ibadurrahman-balangan.md";
   slug: "pkbm-ibadurrahman-balangan";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-ibnu-abbas.md": {
 	id: "pkbm-ibnu-abbas.md";
   slug: "pkbm-ibnu-abbas";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-imam-ibnu-katsir.md": {
 	id: "pkbm-imam-ibnu-katsir.md";
   slug: "pkbm-imam-ibnu-katsir";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-imam-muslim.md": {
 	id: "pkbm-imam-muslim.md";
   slug: "pkbm-imam-muslim";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-islamic-centre-bin-baz-wangon.md": {
 	id: "pkbm-islamic-centre-bin-baz-wangon.md";
   slug: "pkbm-islamic-centre-bin-baz-wangon";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-kuttab-rabbani.md": {
 	id: "pkbm-kuttab-rabbani.md";
   slug: "pkbm-kuttab-rabbani";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-plus-babussalam.md": {
 	id: "pkbm-plus-babussalam.md";
   slug: "pkbm-plus-babussalam";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-qurrata-ayun.md": {
 	id: "pkbm-qurrata-ayun.md";
   slug: "pkbm-qurrata-ayun";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-riyadhul-jannah-bojongsari.md": {
 	id: "pkbm-riyadhul-jannah-bojongsari.md";
   slug: "pkbm-riyadhul-jannah-bojongsari";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-sabilul-hidayah.md": {
 	id: "pkbm-sabilul-hidayah.md";
   slug: "pkbm-sabilul-hidayah";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-sabilul-mukminin.md": {
 	id: "pkbm-sabilul-mukminin.md";
   slug: "pkbm-sabilul-mukminin";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-sekolah-al-jazariy.md": {
 	id: "pkbm-sekolah-al-jazariy.md";
   slug: "pkbm-sekolah-al-jazariy";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-sekolah-developer-indonesia-kodein.md": {
 	id: "pkbm-sekolah-developer-indonesia-kodein.md";
   slug: "pkbm-sekolah-developer-indonesia-kodein";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-sekolah-islam-abu-bakar.md": {
 	id: "pkbm-sekolah-islam-abu-bakar.md";
   slug: "pkbm-sekolah-islam-abu-bakar";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-sekolah-tahfidz-ibnu-mas-ud.md": {
 	id: "pkbm-sekolah-tahfidz-ibnu-mas-ud.md";
   slug: "pkbm-sekolah-tahfidz-ibnu-mas-ud";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-stq-al-muzaniy.md": {
 	id: "pkbm-stq-al-muzaniy.md";
   slug: "pkbm-stq-al-muzaniy";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-tahfizh-at-tamam.md": {
 	id: "pkbm-tahfizh-at-tamam.md";
   slug: "pkbm-tahfizh-at-tamam";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pkbm-zirr-bin-hubaisy.md": {
 	id: "pkbm-zirr-bin-hubaisy.md";
   slug: "pkbm-zirr-bin-hubaisy";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "pondok-tahfizh-putri-aladzievie.md": {
 	id: "pondok-tahfizh-putri-aladzievie.md";
   slug: "pondok-tahfizh-putri-aladzievie";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "rumah-qur-an-riyadhus-shalihin.md": {
 	id: "rumah-qur-an-riyadhus-shalihin.md";
   slug: "rumah-qur-an-riyadhus-shalihin";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 "urban-huffazh.md": {
 	id: "urban-huffazh.md";
   slug: "urban-huffazh";
   body: string;
   collection: "pkbm-profil";
-  data: any
+  data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
 };
 
@@ -468,5 +468,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("./../../src/content/config.js");
 }
