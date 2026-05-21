@@ -29,6 +29,6 @@ galeri:
 
 <!-- Diisi oleh: Anshory Hadi -->
 
-PKBM ADZKA berada di bawah naungan Yayasan Muslim Indonesia, berdomisili di Ciputat, Kota Tangerang Selatan.
+PKBM ADZKA berada di bawah naungan Yayasan Muslim ADZKA Indonesia, berdomisili di Ciputat, Kota Tangerang Selatan.
 
 Pembelajaran murid Banin dan Banat dipisah dari Jenjang Paket A (setara SD) sampai Jenjang Paket C (setara SMA).

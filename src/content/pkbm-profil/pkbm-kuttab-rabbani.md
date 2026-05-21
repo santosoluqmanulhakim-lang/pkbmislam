@@ -4,7 +4,7 @@ image: "/images/pkbm/pkbm-kuttab-rabbani-1.jpg"
 kota: "Jember"
 provinsi: "Jawa Timur"
 status: "PKBM Mandiri - Belum Akreditasi"
-tahunBerdiri: 2026
+tahunBerdiri: 2019
 program:
   - "Paket A"
   - "Paket B"
