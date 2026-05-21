@@ -1,7 +1,7 @@
 ---
-title: "Jembatan Ilmu"
+title: "Jadilah Jembatan Ilmu, Belajar dari Kisah Para Pendahulu Kita"
 image: "/images/blog/jembatan-ilmu.jpg"
-description: "Jadilah wasilah bagi para penuntut ilmu."
+description: "Jadilah wasilah bagi para penuntut ilmu, membantu tersebarnya ilmu dan kebaikan dari generasi ke generasi"
 pubDate: 2026-05-08
 author: "Tim Redaksi"
 tags: ["Sekolah", "Amal Jariyah", "Ilmu"]

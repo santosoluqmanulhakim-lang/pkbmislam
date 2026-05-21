@@ -6,7 +6,7 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const pkbmList = (await getCollection('pkbm-profil')).slice(0, 3);
+const pkbmList = (await getCollection('pkbm-profil')).slice(0, 6);
 ---
 
 <BaseLayout title="Beranda" description="Portal informasi lengkap seputar PKBM Islam di Indonesia — panduan pendirian, program kesetaraan Paket A B C, dan profil lembaga.">
