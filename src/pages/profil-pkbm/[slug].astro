@@ -220,6 +220,44 @@ const status = pkbm.data.status ?? null;
     color: var(--clr-text-muted);
   }
 
+  /* Table */
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .prose :global(thead) {
+    background: var(--clr-primary);
+    color: #fff;
+  }
+  .prose :global(th) {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .prose :global(td) {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--clr-border);
+    color: var(--clr-text);
+    vertical-align: top;
+  }
+  .prose :global(tbody tr:nth-child(even)) {
+    background: var(--clr-primary-light);
+  }
+  .prose :global(tbody tr:last-child td) {
+    border-bottom: none;
+  }
+  .prose :global(tbody tr:hover) {
+    background: var(--clr-accent-light);
+  }
+
   /* Status badge */
   .status-badge {
     display: inline-block;

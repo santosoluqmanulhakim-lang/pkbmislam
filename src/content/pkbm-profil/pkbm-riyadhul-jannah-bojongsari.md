@@ -3,7 +3,7 @@ nama: "PKBM Riyadhul Jannah Bojongsari"
 image: "/images/pkbm/pkbm-riyadhul-jannah-bojongsari-1.jpg"
 kota: "Depok"
 provinsi: "Jawa Barat"
-status: "PKBM Mandiri - Akreditasi A"
+status: "PKBM Mandiri - Akreditasi C"
 tahunBerdiri: 2022
 program:
   - "Paket A"
