@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const pkbmList = (await getCollection('pkbm-profil'))
-  .sort((a, b) => a.data.nama.localeCompare(b.data.nama));
+  .sort((a, b) => a.data.tahunBerdiri - b.data.tahunBerdiri);
 
 const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
 ---

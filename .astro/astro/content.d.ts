@@ -304,6 +304,13 @@ declare module 'astro:content' {
   collection: "pkbm-profil";
   data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
+"pkbm-daarul-atsar.md": {
+	id: "pkbm-daarul-atsar.md";
+  slug: "pkbm-daarul-atsar";
+  body: string;
+  collection: "pkbm-profil";
+  data: InferEntrySchema<"pkbm-profil">
+} & { render(): Render[".md"] };
 "pkbm-daarus-sunnah-cibinong.md": {
 	id: "pkbm-daarus-sunnah-cibinong.md";
   slug: "pkbm-daarus-sunnah-cibinong";
@@ -475,13 +482,6 @@ declare module 'astro:content' {
 "pkbm-tahfizh-at-tamam.md": {
 	id: "pkbm-tahfizh-at-tamam.md";
   slug: "pkbm-tahfizh-at-tamam";
-  body: string;
-  collection: "pkbm-profil";
-  data: InferEntrySchema<"pkbm-profil">
-} & { render(): Render[".md"] };
-"pkbm-wiraguna.md": {
-	id: "pkbm-wiraguna.md";
-  slug: "pkbm-wiraguna";
   body: string;
   collection: "pkbm-profil";
   data: InferEntrySchema<"pkbm-profil">

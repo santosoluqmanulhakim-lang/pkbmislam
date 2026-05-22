@@ -1,6 +1,6 @@
 ---
-nama: "PKBM Wiraguna"
-image: "/images/pkbm/pkbm-wiraguna-1.jpg"
+nama: "PKBM Daarul Atsar"
+image: "/images/pkbm/pkbm-daarul-atsar-1.jpg"
 kota: "Depok"
 provinsi: "Jawa Barat"
 status: "Menginduk"
@@ -19,11 +19,11 @@ email: "kepsek.da@gmail.com"
 deskripsi: "Sekolah Daarul Atsar (SDA) — Belajar Alami, Tumbuh Dalam Fitrah Islam. Sekolah karakter Islam dengan nuansa alam: pepohonan rindang, sungai kecil, dan saung-saung di atas empang."
 keunggulan: []
 galeri:
-  - "/images/pkbm/pkbm-wiraguna-1.jpg"
-  - "/images/pkbm/pkbm-wiraguna-2.jpg"
-  - "/images/pkbm/pkbm-wiraguna-3.jpg"
-  - "/images/pkbm/pkbm-wiraguna-4.jpg"
-  - "/images/pkbm/pkbm-wiraguna-5.jpg"
+  - "/images/pkbm/pkbm-daarul-atsar-1.jpg"
+  - "/images/pkbm/pkbm-daarul-atsar-2.jpg"
+  - "/images/pkbm/pkbm-daarul-atsar-3.jpg"
+  - "/images/pkbm/pkbm-daarul-atsar-4.jpg"
+  - "/images/pkbm/pkbm-daarul-atsar-5.jpg"
 ---
 
 <!-- Diisi oleh: Pak Tri Budiyanto -->
