@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const siteTitle = `${title} | PKBM Islam Indonesia`;
+const siteTitle = `${title} | PKBM Sunnah Indonesia`;
 
 import Comments from '../components/Comments.astro';
 const slug = Astro.params.slug;
@@ -244,8 +244,8 @@ const showComments = !!slug && (
   <nav class="navbar">
     <div class="navbar-inner">
       <a class="navbar-logo" href="/">
-        <img src="/logo.png" alt="PKBM Islam Indonesia" width="32" height="32" />
-        PKBM <span>Islam Indonesia</span>
+        <img src="/logo.png" alt="PKBM Sunnah Indonesia" width="32" height="32" />
+        PKBM <span>Sunnah Indonesia</span>
       </a>
       <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">
         <span></span><span></span><span></span>
@@ -279,8 +279,8 @@ const showComments = !!slug && (
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <strong>PKBM Islam Indonesia</strong>
-          <p>Sumber informasi terpercaya seputar Pusat Kegiatan Belajar Masyarakat (PKBM) di Indonesia — dari pendirian hingga pengelolaan berbasis nilai Islam.</p>
+          <strong>PKBM Sunnah Indonesia</strong>
+          <p>Sumber informasi terpercaya seputar Pusat Kegiatan Belajar Masyarakat (PKBM) di Indonesia — dari pendirian hingga pengelolaan berbasis nilai Islam dan Sunnah.</p>
         </div>
         <div class="footer-col">
           <h4>Halaman</h4>
@@ -301,7 +301,7 @@ const showComments = !!slug && (
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© {new Date().getFullYear()} PKBM Islam Indonesia</span>
+        <span>© {new Date().getFullYear()} PKBM Sunnah Indonesia</span>
         <span>Membangun pendidikan non-formal yang berkah</span>
       </div>
     </div>

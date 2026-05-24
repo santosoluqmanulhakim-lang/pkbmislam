@@ -9,7 +9,7 @@ const posts = (await getCollection('blog'))
 const pkbmList = (await getCollection('pkbm-profil')).slice(0, 6);
 ---
 
-<BaseLayout title="Beranda" description="Portal informasi lengkap seputar PKBM Islam di Indonesia — panduan pendirian, program kesetaraan Paket A B C, dan profil lembaga.">
+<BaseLayout title="Beranda" description="Portal informasi lengkap seputar PKBM Sunnah di Indonesia — panduan pendirian, program kesetaraan Paket A B C, dan profil lembaga.">
 
   <!-- Hero Slideshow -->
   <section class="hero">
@@ -17,9 +17,9 @@ const pkbmList = (await getCollection('pkbm-profil')).slice(0, 6);
       <div class="slide active" style="background-image: url('/images/slides/slide-1.jpg')">
         <div class="slide-overlay"></div>
         <div class="slide-content container">
-          <div class="hero-badge">Pendidikan Non-Formal Islami</div>
+          <div class="hero-badge">Pendidikan Non-Formal Sesuai Nilai Islam dan Sunnah</div>
           <h1>Informasi Lengkap<br/><em>Seputar PKBM</em></h1>
-          <p class="hero-desc">Panduan mendirikan PKBM, mengenal program kesetaraan Paket A, B, C, serta profil PKBM Islam yang telah berkiprah di berbagai daerah.</p>
+          <p class="hero-desc">Panduan mendirikan PKBM, mengenal program kesetaraan Paket A, B, C, serta profil PKBM Sunnah yang telah berkiprah di berbagai daerah.</p>
           <div class="hero-actions">
             <a href="/pendirian" class="btn btn-primary">Cara Mendirikan PKBM →</a>
             <a href="/program" class="btn btn-outline">Lihat Program</a>
@@ -41,9 +41,9 @@ const pkbmList = (await getCollection('pkbm-profil')).slice(0, 6);
       <div class="slide" style="background-image: url('/images/slides/slide-3.jpg')">
         <div class="slide-overlay"></div>
         <div class="slide-content container">
-          <div class="hero-badge">Profil PKBM Islam</div>
+          <div class="hero-badge">Profil PKBM Sunnah</div>
           <h1>Belajar dari<br/><em>Yang Sudah Berjalan</em></h1>
-          <p class="hero-desc">Kenali PKBM Islam yang telah sukses beroperasi — cerita, tantangan, dan keunggulan mereka.</p>
+          <p class="hero-desc">Kenali PKBM Sunnah yang telah sukses beroperasi — cerita, tantangan, dan keunggulan mereka.</p>
           <div class="hero-actions">
             <a href="/profil-pkbm" class="btn btn-primary">Lihat Profil PKBM →</a>
             <a href="/blog" class="btn btn-outline">Baca Artikel</a>
@@ -118,7 +118,7 @@ const pkbmList = (await getCollection('pkbm-profil')).slice(0, 6);
       <div class="pendirian-box">
         <div class="pendirian-text">
           <h2>Ingin Mendirikan PKBM?</h2>
-          <p>Kami rangkum panduan lengkap: syarat, dokumen, alur izin operasional, hingga tips membangun PKBM yang berlandaskan nilai Islam.</p>
+          <p>Kami rangkum panduan lengkap: syarat, dokumen, alur izin operasional, hingga tips membangun PKBM yang berlandaskan nilai Islam dan Sunnah.</p>
           <a href="/pendirian" class="btn btn-primary">Baca Panduan Pendirian →</a>
         </div>
         <div class="pendirian-steps">
@@ -136,8 +136,8 @@ const pkbmList = (await getCollection('pkbm-profil')).slice(0, 6);
   {pkbmList.length > 0 && (
     <section class="profil-section">
       <div class="container">
-        <h2 class="section-title">Profil PKBM Islam</h2>
-        <p class="section-subtitle">Lembaga-lembaga yang telah berhasil menjalankan PKBM berbasis nilai Islam</p>
+        <h2 class="section-title">Profil PKBM Sunnah</h2>
+        <p class="section-subtitle">Lembaga-lembaga yang telah berhasil menjalankan PKBM berbasis nilai Islam dan Sunnah</p>
         <div class="pkbm-grid">
           {pkbmList.map(pkbm => (
             <a href={`/profil-pkbm/${pkbm.slug}`} class="pkbm-card">
