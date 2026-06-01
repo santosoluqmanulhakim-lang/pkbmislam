@@ -141,6 +141,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"aturan-kenaikan-kelas-pkbm.md": {
+	id: "aturan-kenaikan-kelas-pkbm.md";
+  slug: "aturan-kenaikan-kelas-pkbm";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "jembatan-ilmu.md": {
 	id: "jembatan-ilmu.md";
   slug: "jembatan-ilmu";
@@ -181,6 +188,13 @@ declare module 'astro:content' {
 "as-sunnah.md": {
 	id: "as-sunnah.md";
   slug: "as-sunnah";
+  body: string;
+  collection: "pkbm-profil";
+  data: InferEntrySchema<"pkbm-profil">
+} & { render(): Render[".md"] };
+"cintaqu-sekolah-fleksibel-menuju-cerdas-dewasa-dan-takwa.md": {
+	id: "cintaqu-sekolah-fleksibel-menuju-cerdas-dewasa-dan-takwa.md";
+  slug: "cintaqu-sekolah-fleksibel-menuju-cerdas-dewasa-dan-takwa";
   body: string;
   collection: "pkbm-profil";
   data: InferEntrySchema<"pkbm-profil">
@@ -258,6 +272,13 @@ declare module 'astro:content' {
 "pkbm-al-mansuora.md": {
 	id: "pkbm-al-mansuora.md";
   slug: "pkbm-al-mansuora";
+  body: string;
+  collection: "pkbm-profil";
+  data: InferEntrySchema<"pkbm-profil">
+} & { render(): Render[".md"] };
+"pkbm-al-qolam.md": {
+	id: "pkbm-al-qolam.md";
+  slug: "pkbm-al-qolam";
   body: string;
   collection: "pkbm-profil";
   data: InferEntrySchema<"pkbm-profil">
@@ -409,6 +430,13 @@ declare module 'astro:content' {
   collection: "pkbm-profil";
   data: InferEntrySchema<"pkbm-profil">
 } & { render(): Render[".md"] };
+"pkbm-nidaus-salam.md": {
+	id: "pkbm-nidaus-salam.md";
+  slug: "pkbm-nidaus-salam";
+  body: string;
+  collection: "pkbm-profil";
+  data: InferEntrySchema<"pkbm-profil">
+} & { render(): Render[".md"] };
 "pkbm-plus-babussalam.md": {
 	id: "pkbm-plus-babussalam.md";
   slug: "pkbm-plus-babussalam";
@@ -482,6 +510,13 @@ declare module 'astro:content' {
 "pkbm-tahfizh-at-tamam.md": {
 	id: "pkbm-tahfizh-at-tamam.md";
   slug: "pkbm-tahfizh-at-tamam";
+  body: string;
+  collection: "pkbm-profil";
+  data: InferEntrySchema<"pkbm-profil">
+} & { render(): Render[".md"] };
+"pkbm-yayasan-qothrun-nada-deli-serdang.md": {
+	id: "pkbm-yayasan-qothrun-nada-deli-serdang.md";
+  slug: "pkbm-yayasan-qothrun-nada-deli-serdang";
   body: string;
   collection: "pkbm-profil";
   data: InferEntrySchema<"pkbm-profil">
