@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="id" data-astro-cid-le7jws6z> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Moderasi Komentar — Admin PKBM Islam</title><link rel="stylesheet" href="/_astro/komentar.C6N5WdBW.css"></head> <body data-astro-cid-le7jws6z> <!-- Penampung UID admin dari environment variable --> <div id="admin-config" data-uid="U5QggYmSzmh4vO1wNdwhY3jxJrV2" style="display:none;" data-astro-cid-le7jws6z></div> <header class="header" data-astro-cid-le7jws6z> <div class="header-brand" data-astro-cid-le7jws6z>
+pkbmsunnah.id <span data-astro-cid-le7jws6z>admin / komentar</span> </div> <div class="header-user" data-astro-cid-le7jws6z> <img id="admin-photo" src="" alt="foto admin" referrerpolicy="no-referrer" data-astro-cid-le7jws6z> <span id="admin-name" data-astro-cid-le7jws6z></span> <button id="logout-btn" data-astro-cid-le7jws6z>Keluar</button> </div> </header> <div id="login-gate" data-astro-cid-le7jws6z> <div class="login-card" data-astro-cid-le7jws6z> <h2 data-astro-cid-le7jws6z>Moderasi Komentar</h2> <p data-astro-cid-le7jws6z>Halaman ini hanya untuk administrator.<br data-astro-cid-le7jws6z>Masuk dengan akun Google yang terdaftar.</p> <button class="google-btn" id="login-btn" data-astro-cid-le7jws6z> <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google" data-astro-cid-le7jws6z>
+Masuk dengan Google
+</button> <div id="not-admin-msg" data-astro-cid-le7jws6z>Akun ini tidak memiliki akses admin.<br data-astro-cid-le7jws6z>Hubungi pengelola sistem.</div> </div> </div> <div id="admin-panel" data-astro-cid-le7jws6z> <div class="container" data-astro-cid-le7jws6z> <div class="stats-row" data-astro-cid-le7jws6z> <div class="stat-card" data-astro-cid-le7jws6z><div class="stat-label" data-astro-cid-le7jws6z>Total Komentar</div><div class="stat-value" id="stat-total" data-astro-cid-le7jws6z>—</div></div> <div class="stat-card" data-astro-cid-le7jws6z><div class="stat-label" data-astro-cid-le7jws6z>Hari Ini</div><div class="stat-value" id="stat-today" data-astro-cid-le7jws6z>—</div></div> <div class="stat-card" data-astro-cid-le7jws6z><div class="stat-label" data-astro-cid-le7jws6z>Unik Pengguna</div><div class="stat-value" id="stat-users" data-astro-cid-le7jws6z>—</div></div> <div class="stat-card" data-astro-cid-le7jws6z><div class="stat-label" data-astro-cid-le7jws6z>Perlu Tinjauan</div><div class="stat-value danger" id="stat-flagged" data-astro-cid-le7jws6z>—</div></div> </div> <div class="filter-bar" data-astro-cid-le7jws6z> <input type="search" id="search-input" placeholder="Cari nama, teks, atau slug..." data-astro-cid-le7jws6z> <select id="filter-slug" data-astro-cid-le7jws6z><option value="" data-astro-cid-le7jws6z>Semua halaman</option></select> <button class="btn-refresh" id="refresh-btn" data-astro-cid-le7jws6z>↺ Muat ulang</button> </div> <div id="comments-container" data-astro-cid-le7jws6z><div class="state-msg" data-astro-cid-le7jws6z>Memuat komentar...</div></div> </div> </div> <div id="toast" data-astro-cid-le7jws6z></div> <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+  import { getFirestore, collection, getDocs, deleteDoc, doc, orderBy, query }
+    from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAJfV1PjIGOAAMsaINMAlU30Oy-ji6hJlo",
+    authDomain: "pkbmislam-comment.firebaseapp.com",
+    projectId: "pkbmislam-comment",
+    storageBucket: "pkbmislam-comment.firebasestorage.app",
+    messagingSenderId: "692599447287",
+    appId: "1:692599447287:web:3ba568cf53eb952fbdfdf2",
+  };
+
+  // UID dibaca dari frontmatter via data attribute — tidak hardcode di sini
+  const ADMIN_UIDS = [document.getElementById("admin-config").dataset.uid].filter(Boolean);
+
+  const FLAG_WORDS = ["spam", "judi", "porno", "babi", "anjing", "bangsat"];
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  let allComments = [];
+
+  document.getElementById("login-btn").addEventListener("click", () =>
+    signInWithPopup(auth, new GoogleAuthProvider()).catch(e => showToast(e.message, true)));
+  document.getElementById("logout-btn").addEventListener("click", () => signOut(auth));
+
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      if (!ADMIN_UIDS.includes(user.uid)) {
+        document.getElementById("not-admin-msg").style.display = "block";
+        await signOut(auth);
+        return;
+      }
+      document.getElementById("login-gate").style.display = "none";
+      document.getElementById("admin-panel").style.display = "block";
+      document.getElementById("admin-name").textContent = user.displayName;
+      const photo = document.getElementById("admin-photo");
+      photo.src = user.photoURL || ""; photo.style.display = "block";
+      document.getElementById("logout-btn").style.display = "inline-block";
+      loadComments();
+    } else {
+      document.getElementById("login-gate").style.display = "flex";
+      document.getElementById("admin-panel").style.display = "none";
+      document.getElementById("logout-btn").style.display = "none";
+      document.getElementById("admin-photo").style.display = "none";
+      document.getElementById("admin-name").textContent = "";
+    }
+  });
+
+  async function loadComments() {
+    document.getElementById("comments-container").innerHTML = '<div class="state-msg">Memuat komentar...</div>';
+    try {
+      const snap = await getDocs(query(collection(db, "comments"), orderBy("createdAt", "desc")));
+      allComments = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      updateStats(); populateSlugFilter(); renderComments();
+    } catch (e) {
+      document.getElementById("comments-container").innerHTML =
+        `<div class="state-msg">Gagal memuat: ${e.message}</div>`;
+    }
+  }
+
+  document.getElementById("refresh-btn").addEventListener("click", loadComments);
+
+  function updateStats() {
+    const today = new Date().toDateString();
+    document.getElementById("stat-total").textContent = allComments.length;
+    document.getElementById("stat-today").textContent =
+      allComments.filter(c => c.createdAt?.toDate?.().toDateString() === today).length;
+    document.getElementById("stat-users").textContent =
+      new Set(allComments.map(c => c.uid)).size;
+    document.getElementById("stat-flagged").textContent =
+      allComments.filter(c => isFlagged(c.text)).length;
+  }
+
+  function isFlagged(text = "") { return FLAG_WORDS.some(w => text.toLowerCase().includes(w)); }
+
+  function populateSlugFilter() {
+    const slugs = [...new Set(allComments.map(c => c.slug).filter(Boolean))].sort();
+    const sel = document.getElementById("filter-slug");
+    sel.innerHTML = '<option value="">Semua halaman</option>';
+    slugs.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); });
+  }
+
+  function getFiltered() {
+    const q = document.getElementById("search-input").value.toLowerCase().trim();
+    const slug = document.getElementById("filter-slug").value;
+    return allComments.filter(c =>
+      (!slug || c.slug === slug) &&
+      (!q || [c.displayName, c.text, c.slug].some(v => v?.toLowerCase().includes(q)))
+    );
+  }
+
+  function renderComments() {
+    const filtered = getFiltered();
+    const container = document.getElementById("comments-container");
+    if (!filtered.length) { container.innerHTML = '<div class="state-msg">Tidak ada komentar ditemukan.</div>'; return; }
+    container.innerHTML = filtered.map(c => {
+      const flagged = isFlagged(c.text);
+      const waktu = c.createdAt?.toDate
+        ? c.createdAt.toDate().toLocaleString("id-ID", { day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit" })
+        : "—";
+      return `
+        <div class="comment-card ${flagged ? 'flagged' : ''}" data-id="${c.id}">
+          <div>
+            <div class="comment-meta">
+              <img class="comment-avatar" src="${c.photoURL||''}" referrerpolicy="no-referrer" onerror="this.style.display='none'" alt="" />
+              <span class="comment-name">${esc(c.displayName||'Anonim')}</span>
+              ${c.slug ? `<a class="comment-slug" href="/blog/${esc(c.slug)}" target="_blank">${esc(c.slug)}</a>` : ''}
+              <span class="comment-date">${waktu}</span>
+              ${flagged ? '<span style="font-size:11px;color:#c0392b;font-family:sans-serif;">⚑ Perlu tinjauan</span>' : ''}
+            </div>
+            <p class="comment-text">${esc(c.text||'')}</p>
+            <div class="comment-uid">uid: ${c.uid||'—'}</div>
+          </div>
+          <div><button class="btn-delete" onclick="hapusKomentar('${c.id}',this)">Hapus</button></div>
+        </div>`;
+    }).join("");
+  }
+
+  document.getElementById("search-input").addEventListener("input", renderComments);
+  document.getElementById("filter-slug").addEventListener("change", renderComments);
+
+  window.hapusKomentar = async (id, btn) => {
+    if (!confirm("Hapus komentar ini? Tindakan tidak bisa dibatalkan.")) return;
+    btn.disabled = true; btn.textContent = "Menghapus...";
+    try {
+      await deleteDoc(doc(db, "comments", id));
+      const card = document.querySelector(`[data-id="${id}"]`);
+      if (card) { card.style.opacity = "0"; card.style.transition = "opacity 0.2s"; }
+      setTimeout(() => { allComments = allComments.filter(c => c.id !== id); updateStats(); renderComments(); }, 200);
+      showToast("Komentar berhasil dihapus.");
+    } catch (e) {
+      btn.disabled = false; btn.textContent = "Hapus";
+      showToast("Gagal menghapus: " + e.message, true);
+    }
+  };
+
+  function showToast(msg, isDanger = false) {
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.className = "show" + (isDanger ? " danger" : "");
+    setTimeout(() => t.className = "", 3000);
+  }
+
+  function esc(str) {
+    return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+</script> </body> </html>

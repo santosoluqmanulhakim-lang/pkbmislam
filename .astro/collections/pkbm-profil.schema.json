@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "nama": {
+      "type": "string"
+    },
+    "kota": {
+      "type": "string"
+    },
+    "provinsi": {
+      "type": "string"
+    },
+    "tahunBerdiri": {
+      "type": "number"
+    },
+    "program": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "default": "PKBM Mandiri - Belum Akreditasi",
+      "type": "string",
+      "enum": [
+        "Homeschooling",
+        "Menginduk",
+        "PKBM Mandiri - Akreditasi A",
+        "PKBM Mandiri - Akreditasi B",
+        "PKBM Mandiri - Akreditasi C",
+        "PKBM Mandiri - Belum Akreditasi"
+      ]
+    },
+    "website": {
+      "type": "string"
+    },
+    "deskripsi": {
+      "type": "string"
+    },
+    "keunggulan": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "image": {
+      "type": "string"
+    },
+    "maps": {
+      "default": "",
+      "type": "string"
+    },
+    "kontak": {
+      "default": "",
+      "type": "string"
+    },
+    "email": {
+      "default": "",
+      "type": "string"
+    },
+    "galeri": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "nama",
+    "kota",
+    "provinsi",
+    "tahunBerdiri",
+    "program",
+    "deskripsi"
+  ]
+}

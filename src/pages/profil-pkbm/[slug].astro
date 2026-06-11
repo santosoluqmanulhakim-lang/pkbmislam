@@ -1,17 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const pkbmList = await getCollection('pkbm-profil');
   return pkbmList.map(pkbm => ({
-    params: { slug: pkbm.slug },
+    params: { slug: pkbm.id },
     props: { pkbm },
   }));
 }
 
 const { pkbm } = Astro.props;
-const { Content } = await pkbm.render();
+const { Content } = await render(pkbm);
 
 const statusClass: Record<string, string> = {
   'PKBM Mandiri - Akreditasi A': 'status-akreditasi-a',
