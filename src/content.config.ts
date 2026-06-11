@@ -1,8 +1,8 @@
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders'; // 1. Ambil loader glob bawaan Astro v6
+import { glob } from 'astro/loaders'; // Wajib di Astro v6
 
 const blog = defineCollection({
-  // 2. Ganti type: 'content' dengan loader glob ke folder blog
+  // Menggantikan type: 'content' bawaan Astro v4/v5
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
@@ -15,7 +15,7 @@ const blog = defineCollection({
 });
 
 const pkbmProfil = defineCollection({
-  // 3. Ganti type: 'content' dengan loader glob ke folder pkbm-profil
+  // Menggantikan type: 'content' bawaan Astro v4/v5
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/pkbm-profil" }),
   schema: z.object({
     nama: z.string(),
@@ -30,7 +30,7 @@ const pkbmProfil = defineCollection({
       'PKBM Mandiri - Akreditasi B', 
       'PKBM Mandiri - Akreditasi C', 
       'PKBM Mandiri - Belum Akreditasi'
-    ]).default('PKBM Mandiri - Belum Akreditasi'), // Catatan: sesuaikan default dengan salah satu opsi enum agar tidak error
+    ]).default('PKBM Mandiri - Belum Akreditasi'), // Disesuaikan agar match dengan daftar pilihan enum di atas
     website: z.string().optional(),
     deskripsi: z.string(),
     keunggulan: z.array(z.string()).optional().default([]),
