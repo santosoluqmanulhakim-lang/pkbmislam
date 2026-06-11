@@ -50,7 +50,7 @@ const provinsis = [...new Set(pkbmList.map(p => p.data.provinsi))].sort();
 
           <div class="pkbm-grid" id="pkbm-grid">
             {pkbmList.map(pkbm => (
-              <a href={`/profil-pkbm/${pkbm.slug}`} class="pkbm-card"
+              <a href={`/profil-pkbm/${pkbm.id}`} class="pkbm-card"
                 data-nama={pkbm.data.nama.toLowerCase()}
                 data-kota={pkbm.data.kota.toLowerCase()}
                 data-provinsi={pkbm.data.provinsi}

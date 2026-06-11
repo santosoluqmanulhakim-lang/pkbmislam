@@ -24,7 +24,7 @@ const posts = (await getCollection('blog'))
       ) : (
         <div class="blog-grid">
           {posts.map(post => (
-            <a href={`/blog/${post.slug}`} class="blog-card">
+            <a href={`/blog/${post.id}`} class="blog-card">
               <div class="blog-thumb">
                 {post.data.image
                   ? <img src={post.data.image} alt={post.data.title} loading="lazy" decoding="async" />

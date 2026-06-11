@@ -140,7 +140,7 @@ const pkbmList = (await getCollection('pkbm-profil')).slice(0, 6);
         <p class="section-subtitle">Lembaga-lembaga yang telah berhasil menjalankan PKBM berbasis nilai Islam dan Sunnah</p>
         <div class="pkbm-grid">
           {pkbmList.map(pkbm => (
-            <a href={`/profil-pkbm/${pkbm.slug}`} class="pkbm-card">
+            <a href={`/profil-pkbm/${pkbm.id}`} class="pkbm-card">
               <div class="pkbm-thumb">
                 {pkbm.data.image
                   ? <img src={pkbm.data.image} alt={pkbm.data.nama} loading="lazy" decoding="async" />
@@ -171,7 +171,7 @@ const pkbmList = (await getCollection('pkbm-profil')).slice(0, 6);
         <p class="section-subtitle">Wawasan, panduan, dan inspirasi seputar pendidikan non-formal</p>
         <div class="blog-grid">
           {posts.map(post => (
-            <a href={`/blog/${post.slug}`} class="blog-card">
+            <a href={`/blog/${post.id}`} class="blog-card">
               <div class="blog-thumb">
                 {post.data.image
                   ? <img src={post.data.image} alt={post.data.title} loading="lazy" />

@@ -61,13 +61,13 @@ const related = allPosts
     <!-- Navigasi prev/next -->
 <nav class="post-nav">
   {prev && (
-    <a href={`/blog/${prev.slug}`} class="post-nav-item prev">
+    <a href={`/blog/${prev.id}`} class="post-nav-item prev">
       <span>← Sebelumnya</span>
       <strong>{prev.data.title}</strong>
     </a>
   )}
   {next && (
-    <a href={`/blog/${next.slug}`} class="post-nav-item next">
+    <a href={`/blog/${next.id}`} class="post-nav-item next">
       <span>Berikutnya →</span>
       <strong>{next.data.title}</strong>
     </a>
